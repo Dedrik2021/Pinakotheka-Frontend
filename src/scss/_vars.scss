@@ -1,0 +1,75 @@
+$white: #ffffff;
+$gray: #bdbdbd;
+$gray-100: #4f4f4f;
+$gray-200: #333333;
+$gray-300: #ededed;
+$gray-400: #e0e0e0;
+$gray-500: #858585;
+$gray-600: #595959;
+$gray-700: #8e8878;
+$gray-800: #c4c4c4;
+$gray-900: #828282;
+$black: #000000;
+$black-100: #272727;
+$red: #ce0020;
+$red-100: #c5006f;
+$red-200: #ea0f31;
+$green: #03a600;
+$yellow: #ed7e1f;
+$yellow-100: #ece3cc;
+$blue: #3358a1;
+$blue-100: #3ea2d6;
+
+$gilroy: 'Gilroy', sans-serif;
+$journalism: 'JOURNALISM', sans-serif;
+$roboto: 'Roboto', sans-serif;
+
+@mixin line-clamp($rows: 1) {
+	-webkit-line-clamp: $rows;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+@mixin liner-gradient {
+	&::before {
+		position: absolute;
+		content: '';
+		left: 0;
+		right: 0;
+		border-radius: 10px;
+		top: 0;
+		bottom: 0;
+		transition: background-color 0.4s;
+	}
+
+	&:hover {
+		&::before {
+			background-color: rgba(0, 0, 0, 0.2);
+		}
+	}
+}
+
+@mixin overlay {
+	&::before {
+		position: fixed;
+		content: '';
+		z-index: 30;
+		height: 100vh;
+		width: 100vw;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+}
+
+@mixin r($width) {
+	@media only screen and (max-width: $width) {
+		@content;
+	}
+}
+
+$screen-xxl: 1890px;
+$screen-xl: 1350px;
+$mobile-xl: 1050px;
+$mobile-lg: 992px;
+$mobile-md: 769px;
+$mobile-sm: 576px;

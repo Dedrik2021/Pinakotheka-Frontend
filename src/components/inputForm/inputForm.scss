@@ -1,0 +1,20 @@
+@import '../../scss/vars';
+
+.input {
+    width: 100%;
+    border: 1px solid $gray;
+    border-radius: 5px;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 14px;
+    color: $black-100;
+
+    &::placeholder {
+        font-size: 14px;
+        color: $gray-900;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 15px;
+    }
+}

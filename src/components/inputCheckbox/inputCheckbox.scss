@@ -1,0 +1,52 @@
+@import '../../scss/vars';
+
+.custom-checkbox {
+	display: inline-flex;
+	align-items: center;
+    position: relative;
+    margin-right: 30px;
+}
+
+.checkbox-label {
+    font-size: 14px;
+    font-weight: 700;
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+}
+
+.checkbox-custom {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+    top: 3px;
+    position: relative;
+	border: 1px solid $gray;
+	border-radius: 3px;
+	background-color: $white;
+	cursor: pointer;
+}
+
+.original-checkbox {
+    width: 1px;
+    margin-right: 15px;
+	opacity: 0;
+}
+
+.checkbox-custom::after {
+	content: '';
+	display: block;
+	width: 15px;
+	height: 7px;
+    position: absolute;
+    top: 0px;
+    left: -4px;
+	border: solid $red;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+	visibility: hidden;
+}
+
+input[type='checkbox']:checked + .checkbox-custom::after {
+	visibility: visible;
+}

@@ -1,0 +1,75 @@
+@import '../../../scss/vars';
+
+.auth {
+	display: flex;
+    background-color: $white;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    z-index: 10;
+	border: 1px solid $gray-800;
+	border-radius: 5px;
+	padding: 20px;
+
+	&__logo {
+		margin-bottom: 10px;
+	}
+
+    &__buttons {
+        margin-bottom: 20px;
+    }
+
+	&__btn {
+		font-size: 22px;
+		font-weight: 700;
+		font-family: $gilroy;
+        transition: color 0.3s ease-in-out;
+
+		&--left {
+			margin-right: 30px;
+		}
+
+		&:hover {
+			color: $red;
+		}
+	}
+
+    &__form {
+        width: 100%;
+    }
+
+    &__checkboxes {
+        margin-bottom: 15px;
+        display: flex;
+    }
+
+    &__inputs {
+        margin-bottom: 15px;
+    }
+
+    &__terms {
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__forgot {
+        font-size: 14px;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s ease-in-out;
+
+        &:hover {
+            border-color: $gray-900;
+        }
+    }
+
+    .auth__submit {
+        font-size: 18px;
+        font-weight: 700;
+        padding: 10px 0px;
+        width: 100%;
+        background-color: $black;
+        color: $white;
+    }
+}

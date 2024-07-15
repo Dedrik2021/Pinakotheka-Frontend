@@ -1,0 +1,24 @@
+.header {
+    padding: 5px 0 3px;
+    background-color: #e8e6e6;
+
+    &__nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__nav__list {
+        display: flex;
+        align-items: center;
+        
+        li:not(:last-child) {
+            margin-right: 70px;
+        }
+    }
+
+    &__nav__button {
+        background-color: #ccc ;
+        padding: 5px 10px !important;
+    }
+}
