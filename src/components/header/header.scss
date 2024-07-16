@@ -1,3 +1,5 @@
+@import '../../scss/vars';
+
 .header {
     padding: 5px 0 3px;
     background-color: #e8e6e6;
@@ -20,5 +22,14 @@
     &__nav__button {
         background-color: #ccc ;
         padding: 5px 10px !important;
+    }
+
+    &__nav__dropdown {
+        border-bottom: 2px solid transparent;
+        transition: border-bottom-color 0.3s ease-in-out;
+
+        &:hover {
+            border-bottom-color: $red;
+        }
     }
 }
