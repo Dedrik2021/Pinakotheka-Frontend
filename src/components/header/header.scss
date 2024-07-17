@@ -1,8 +1,18 @@
 @import '../../scss/vars';
 
 .header {
-    padding: 5px 0 3px;
+    padding: 7px 0 5px;
     background-color: #e8e6e6;
+    max-width: 101%;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+
+    &.scroll {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        padding: 3px 0px 0px;
+    }
 
     &__nav {
         display: flex;

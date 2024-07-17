@@ -1,6 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Logo from '../../assets/images/Logo.jsx';
 import { logout } from '../../redux/slices/userSlice';
@@ -12,6 +12,7 @@ import './header.scss';
 
 const Header = () => {
 	const [openLoginModal, setOpenLoginModal] = useState(false);
+	const [scroll, setScroll] = useState(0);
 
 	const { user } = useSelector((state) => state.user);
 	const { token } = user;
@@ -21,10 +22,23 @@ const Header = () => {
 
 	const handleLogout = () => {
 		setOpenLoginModal(true);
+
 	};
 
+	useEffect(() => {
+		window.addEventListener('scroll', () => {
+			setScroll(window.scrollY);
+		});
+
+		return () => {
+			window.removeEventListener('scroll', () => {
+				setScroll(window.scrollY);
+			});
+		};
+	}, []);
+
 	return (
-		<div className="header">
+		<div  className={`header ${scroll > 0 ? 'scroll' : ''}`}>
 			<div className="container">
 				<InfoModal
 					open={openLoginModal}
