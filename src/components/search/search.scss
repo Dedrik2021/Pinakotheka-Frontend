@@ -1,0 +1,25 @@
+.search {
+    position: absolute;
+    top: 20px;
+    
+    &__input {
+        min-width: 0;
+        width: 40px;
+        height: 40px;
+        padding: 0 10px;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        font-size: 14px;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        transition: all 1s ease-in-out;
+
+        &.open {
+            min-width: 460px;
+            border-radius: 5px;
+            height: 30px;
+            width: 100%;
+        }
+    }
+
+    
+}

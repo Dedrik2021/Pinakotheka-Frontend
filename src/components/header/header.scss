@@ -20,6 +20,36 @@
         justify-content: space-between;
     }
 
+    &__search__btn {
+        // padding: 8px 10px  !important;
+        border-radius: 50%;
+        border: 1px solid transparent !important; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        width: 40px;
+        transition: all 0.3s ease-in-out;
+
+        &.open {
+            position: relative;
+            right: -460px;
+            box-shadow: rgba(0, 0, 0, 0.35) 3px 5px 10px;
+            border-color: $gray-500;
+            color: $black;
+
+            &:hover {
+                color: $red;
+            }
+        }
+
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.35) 3px 5px 10px;
+            border-color: $gray-500;
+            color: $red;
+        }
+    }
+
     &__nav__list {
         display: flex;
         align-items: center;
