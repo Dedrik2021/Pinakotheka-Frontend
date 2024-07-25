@@ -1,8 +1,8 @@
 import './search.scss'
 
-const Search = ({setOpenSearch, openSearch}) => {
+const Search = ({ openSearch, searchRef}) => {
     return ( 
-        <div className="search">
+        <div className="search" ref={searchRef} >
             <label htmlFor="search"></label>
             <input className={`search__input ${openSearch ? 'open' : ''}`} type="search" name="search" id="search" placeholder="Search..."/>
         </div>

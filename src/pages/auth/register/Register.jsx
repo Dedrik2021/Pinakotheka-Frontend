@@ -281,183 +281,184 @@ const Register = () => {
 	}, [dispatch, location.pathname, location.search, navigate]);
 
 	return (
-		<Modal
-			open={true}
-			onClose={() => setShowModal(false)}
-			aria-labelledby="modal-modal-title"
-			aria-describedby="modal-modal-description"
-		>
-			<Box sx={style}>
-				{status === 'loading' && <Spinner />}
-				<div className="auth">
-					<Link to={'/'} className="auth__logo">
-						<Logo width={185} />
-					</Link>
-					<div className="auth__buttons">
-						<Link
-							style={{
-								color: location.pathname === '/login' ? '#ce0020' : '#272727',
-							}}
-							to={'/login'}
-							className="btn auth__btn auth__btn--left"
-						>
-							Login
+		<>
+			{status === 'loading' && <Spinner />}
+			<Modal
+				open={true}
+				onClose={() => setShowModal(false)}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<Box sx={style}>
+					<div className="auth">
+						<Link to={'/'} className="auth__logo">
+							<Logo width={185} />
 						</Link>
-						<Link
-							style={{
-								color: location.pathname === '/register' ? '#ce0020' : '#272727',
-							}}
-							to={'/register'}
-							className="btn auth__btn"
-						>
-							Register
-						</Link>
-					</div>
-					<form
-						className="auth__form"
-						onSubmit={(e) =>
-							(location.pathname === '/register' && handleRegister(e)) ||
-							(location.pathname === '/login' && handleLogin(e)) ||
-							(location.pathname === '/forgot-password' && handleForgotPassword(e)) ||
-							(location.pathname === '/reset-password' && handleResetPassword(e))
-						}
-					>
-						{location.pathname === '/register' ? (
-							<div className="auth__checkboxes">
-								<div
-									style={{
-										pointerEvents: authorCheck.checked ? 'none' : 'auto',
-										opacity: authorCheck.checked ? 0.5 : 1,
-									}}
-								>
-									<InputCheckbox
-										label="Customer"
-										value={customerCheck.checked}
-										setValue={setCustomerCheck}
-									/>
-								</div>
-								<div
-									style={{
-										pointerEvents: customerCheck.checked ? 'none' : 'auto',
-										opacity: customerCheck.checked ? 0.5 : 1,
-									}}
-								>
-									<InputCheckbox
-										label="Author"
-										value={authorCheck.checked}
-										setValue={setAuthorCheck}
-									/>
-								</div>
-							</div>
-						) : null}
-
-						<div className="auth__inputs">
-							{location.pathname === '/register' ? (
-								<>
-									<InputForm
-										name="name"
-										placeholder="Name"
-										type="text"
-										reference={nameRef}
-										value={name.value}
-										setValue={setName}
-									/>
-									<InputForm
-										name="phone"
-										placeholder="Phone number"
-										type="text"
-										value={phone.value}
-										reference={phoneRef}
-										setValue={setPhone}
-									/>
-								</>
-							) : null}
-							{location.pathname !== '/reset-password' && (
-								<InputForm
-									name="email"
-									placeholder="Email"
-									reference={emailRef}
-									type="text"
-									value={email.value}
-									setValue={setEmail}
-								/>
-							)}
-							{location.pathname === '/register' ||
-							location.pathname === '/login' ||
-							location.pathname === '/reset-password' ? (
-								<InputForm
-									name="password"
-									placeholder="Password"
-									type="password"
-									reference={passwordRef}
-									value={password.value}
-									setValue={setPassword}
-								/>
-							) : null}
-							{location.pathname === '/register' ||
-							location.pathname === '/reset-password' ? (
-								<>
-									<InputForm
-										name="confirmPassword"
-										placeholder="Confirm password"
-										type="password"
-										reference={confirmPasswordRef}
-										value={confirmPassword.value}
-										setValue={setConfirmPassword}
-									/>
-									{password.value ? (
-										<PasswordStrengthBar password={password.value} />
-									) : null}
-								</>
-							) : null}
+						<div className="auth__buttons">
+							<Link
+								style={{
+									color: location.pathname === '/login' ? '#ce0020' : '#272727',
+								}}
+								to={'/login'}
+								className="btn auth__btn auth__btn--left"
+							>
+								Login
+							</Link>
+							<Link
+								style={{
+									color:
+										location.pathname === '/register' ? '#ce0020' : '#272727',
+								}}
+								to={'/register'}
+								className="btn auth__btn"
+							>
+								Register
+							</Link>
 						</div>
+						<form
+							className="auth__form"
+							onSubmit={(e) =>
+								(location.pathname === '/register' && handleRegister(e)) ||
+								(location.pathname === '/login' && handleLogin(e)) ||
+								(location.pathname === '/forgot-password' &&
+									handleForgotPassword(e)) ||
+								(location.pathname === '/reset-password' && handleResetPassword(e))
+							}
+						>
+							{location.pathname === '/register' ? (
+								<div className="auth__checkboxes">
+									<div
+										style={{
+											pointerEvents: authorCheck.checked ? 'none' : 'auto',
+											opacity: authorCheck.checked ? 0.5 : 1,
+										}}
+									>
+										<InputCheckbox
+											label="Customer"
+											value={customerCheck.checked}
+											setValue={setCustomerCheck}
+										/>
+									</div>
+									<div
+										style={{
+											pointerEvents: customerCheck.checked ? 'none' : 'auto',
+											opacity: customerCheck.checked ? 0.5 : 1,
+										}}
+									>
+										<InputCheckbox
+											label="Author"
+											value={authorCheck.checked}
+											setValue={setAuthorCheck}
+										/>
+									</div>
+								</div>
+							) : null}
 
-						{location.pathname === '/register' ? (
-							<div className="auth__terms">
-								<InputCheckbox
-									value={politicsCheck.checked}
-									setValue={setPoliticsCheck}
-									styles={{ fontWeight: '400' }}
-									label="I agree to the terms of service under the conditions and for the purposes described in the User Agreement."
-								/>
+							<div className="auth__inputs">
+								{location.pathname === '/register' ? (
+									<>
+										<InputForm
+											name="name"
+											placeholder="Name"
+											type="text"
+											reference={nameRef}
+											value={name.value}
+											setValue={setName}
+										/>
+										<InputForm
+											name="phone"
+											placeholder="Phone number"
+											type="text"
+											value={phone.value}
+											reference={phoneRef}
+											setValue={setPhone}
+										/>
+									</>
+								) : null}
+								{location.pathname !== '/reset-password' && (
+									<InputForm
+										name="email"
+										placeholder="Email"
+										reference={emailRef}
+										type="text"
+										value={email.value}
+										setValue={setEmail}
+									/>
+								)}
+								{location.pathname === '/register' ||
+								location.pathname === '/login' ||
+								location.pathname === '/reset-password' ? (
+									<InputForm
+										name="password"
+										placeholder="Password"
+										type="password"
+										reference={passwordRef}
+										value={password.value}
+										setValue={setPassword}
+									/>
+								) : null}
+								{location.pathname === '/register' ||
+								location.pathname === '/reset-password' ? (
+									<>
+										<InputForm
+											name="confirmPassword"
+											placeholder="Confirm password"
+											type="password"
+											reference={confirmPasswordRef}
+											value={confirmPassword.value}
+											setValue={setConfirmPassword}
+										/>
+										{password.value ? (
+											<PasswordStrengthBar password={password.value} />
+										) : null}
+									</>
+								) : null}
 							</div>
-						) : (
-							location.pathname === '/login' && (
+
+							{location.pathname === '/register' ? (
 								<div className="auth__terms">
 									<InputCheckbox
 										value={politicsCheck.checked}
 										setValue={setPoliticsCheck}
 										styles={{ fontWeight: '400' }}
-										label="Remember password"
+										label="I agree to the terms of service under the conditions and for the purposes described in the User Agreement."
 									/>
-									<Link
-										className="auth__forgot"
-										to={'/forgot-password'}
-									>
-										Forgot password?
-									</Link>
 								</div>
-							)
-						)}
-						<div className="error-message">
-							{error ? (
-								<p style={{ color: styles ? '#03a600' : 'red' }}>{error}</p>
-							) : null}
-						</div>
-						<button
-							className="btn btn--universal btn--red-hover auth__submit"
-							type="submit"
-						>
-							{location.pathname === '/register' && 'Register'}
-							{location.pathname === '/login' && 'Login'}
-							{location.pathname === '/forgot-password' && 'Send'}
-							{location.pathname === '/reset-password' && 'Reset'}
-							{location.pathname === '/verify-email' && 'Please wait...'}
-						</button>
-					</form>
-				</div>
-			</Box>
-		</Modal>
+							) : (
+								location.pathname === '/login' && (
+									<div className="auth__terms">
+										<InputCheckbox
+											value={politicsCheck.checked}
+											setValue={setPoliticsCheck}
+											styles={{ fontWeight: '400' }}
+											label="Remember password"
+										/>
+										<Link className="auth__forgot" to={'/forgot-password'}>
+											Forgot password?
+										</Link>
+									</div>
+								)
+							)}
+							<div className="error-message">
+								{error ? (
+									<p style={{ color: styles ? '#03a600' : 'red' }}>{error}</p>
+								) : null}
+							</div>
+							<button
+								className="btn btn--universal btn--red-hover auth__submit"
+								type="submit"
+							>
+								{location.pathname === '/register' && 'Register'}
+								{location.pathname === '/login' && 'Login'}
+								{location.pathname === '/forgot-password' && 'Send'}
+								{location.pathname === '/reset-password' && 'Reset'}
+								{location.pathname === '/verify-email' && 'Please wait...'}
+							</button>
+						</form>
+					</div>
+				</Box>
+			</Modal>
+		</>
 	);
 };
 

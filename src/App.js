@@ -1,11 +1,13 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Suspense, useEffect } from 'react';
+import { io } from 'socket.io-client';
 
 import Register from './pages/auth/register/Register';
 import Home from './pages/home/Home';
 import Spinner from './components/spinner/Spinner';
 import ErrorBoundary from './ErrorBoundary.js';
+import SocketContext from './context/SocketContext.js';
 
 import Header from './components/header/Header.jsx';
 import Footer from './components/footer/Footer.jsx';
@@ -13,29 +15,30 @@ import Footer from './components/footer/Footer.jsx';
 import './scss/style.scss';
 import './app.scss';
 
+const socket = io(process.env.REACT_APP_API_URL.split('/api/v1')[0]);
+
 const App = () => {
 	const { user } = useSelector((state) => state.user);
 	const { token } = user;
+	// let token = ''
 	const location = useLocation();
 
-	useEffect(() => {
-		const body = document.body;
-		if (!token) {
-			body.style.overflow = 'hidden';
-		} else {
-			body.style.overflow = 'auto';
-		}
+	// useEffect(() => {
+	// 	socket.on('receiveMessage', (msg) => {
+	// 		console.log(msg);
+	// 	});
+	// });
 
-		return () => {
-			body.style.overflow = 'auto';
-		};
-	}, [token]);
+	// const sendMsg = () => {
+	// 	socket.emit('sendMessage', 'hallo howe are you');
+	// };
 
 	return (
-		<>
+		<SocketContext.Provider value={socket}>
 			<ErrorBoundary>
 				<Header />
 			</ErrorBoundary>
+			{/* <button onClick={() => sendMsg()}>Send message</button> */}
 			<main className="main">
 				<Suspense fallback={<Spinner />}>
 					<Routes location={location} key={location.pathname}>
@@ -69,7 +72,7 @@ const App = () => {
 				</Suspense>
 			</main>
 			<Footer />
-		</>
+		</SocketContext.Provider>
 	);
 };
 

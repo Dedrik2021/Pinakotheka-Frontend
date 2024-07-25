@@ -1,16 +1,16 @@
 @import '../../scss/vars';
 
 .header {
-    padding: 7px 0 5px;
+    padding: 5px 0 3px;
     background-color: #e8e6e6;
     max-width: 101%;
     width: 100%;
-    transition: all 0.3s ease-in-out;
+    top: 0;
+    z-index: 10;
+    position: sticky;
+    transition: padding 0.3s ease-in-out;
 
     &.scroll {
-        position: sticky;
-        top: 0;
-        z-index: 10;
         padding: 3px 0px 0px;
     }
 
@@ -20,33 +20,43 @@
         justify-content: space-between;
     }
 
-    &__search__btn {
-        // padding: 8px 10px  !important;
-        border-radius: 50%;
-        border: 1px solid transparent !important; 
+    &__search {
         display: flex;
         align-items: center;
-        justify-content: center;
-        height: 40px;
-        width: 40px;
-        transition: all 0.3s ease-in-out;
 
-        &.open {
-            position: relative;
-            right: -460px;
-            box-shadow: rgba(0, 0, 0, 0.35) 3px 5px 10px;
-            border-color: $gray-500;
-            color: $black;
-
+        &__btn {
+            // padding: 8px 10px  !important;
+            border-radius: 50%;
+            border: 1px solid transparent !important; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            width: 40px;
+            transition: all 0.3s ease-in-out;
+    
+            &.open {
+                position: relative;
+                right: -453px;
+                border-color: $gray-500;
+                border-radius: 5px;
+                height: 26px;
+                width: 26px;
+                color: $white;
+                background-color: $black;
+    
+                &:hover {
+                    box-shadow: none;
+                    background-color: $red;
+                    color: $white;
+                }
+            }
+    
             &:hover {
+                box-shadow: rgba(0, 0, 0, 0.35) 3px 5px 10px;
+                border-color: $gray-500;
                 color: $red;
             }
-        }
-
-        &:hover {
-            box-shadow: rgba(0, 0, 0, 0.35) 3px 5px 10px;
-            border-color: $gray-500;
-            color: $red;
         }
     }
 
@@ -60,11 +70,17 @@
     }
 
     &__nav__button {
-        background-color: #ccc ;
+        background-color: $black-100; 
         padding: 5px 10px !important;
+        color: $white !important;
+        border-radius: 5px;
+
+        &:hover {
+            background-color: $red !important;
+        }
     }
 
-    &__nav__dropdown {
+    &__nav__link {
         border-bottom: 2px solid transparent;
         transition: border-bottom-color 0.3s ease-in-out;
 

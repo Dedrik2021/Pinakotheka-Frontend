@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { IoLogOutOutline } from "react-icons/io5";
+import { IoLogOut  } from 'react-icons/io5';
+import { MdAccountBox, MdDashboardCustomize  } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
-const Dropdown = ({logout}) => {
+const Dropdown = ({ logout, open }) => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const open = Boolean(anchorEl);
+	const navigate = useNavigate()
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -17,6 +19,16 @@ const Dropdown = ({logout}) => {
 	const handleLogout = () => {
 		logout();
 		setAnchorEl(null);
+	};
+
+	const navigateMyAccount = () => {
+		navigate('/my-account')
+		handleClose()
+	}
+
+	const navigateDashboard = () => {
+		navigate('/dashboard')
+		handleClose()
 	}
 
 	return (
@@ -25,6 +37,7 @@ const Dropdown = ({logout}) => {
 				type="button"
 				onClick={handleClick}
 				className="header__nav__button btn btn--universal btn--black"
+				style={{ color: 'white', backgroundColor: open ? '#ce0020' : 'black' }}
 			>
 				Profile
 			</button>
@@ -37,11 +50,17 @@ const Dropdown = ({logout}) => {
 					'aria-labelledby': 'basic-button',
 				}}
 			>
-				<MenuItem onClick={handleClose}>Profile</MenuItem>
-				<MenuItem onClick={handleClose}>My account</MenuItem>
+				<MenuItem onClick={navigateMyAccount}>
+					<MdAccountBox size={20} />
+					<span style={{ marginLeft: '3px' }}>My account</span>
+				</MenuItem>
+				<MenuItem onClick={navigateDashboard}>
+					< MdDashboardCustomize size={20} />
+					<span style={{ marginLeft: '3px' }}>Dashboard</span>
+				</MenuItem>
 				<MenuItem onClick={handleLogout}>
-					<IoLogOutOutline size={20} />
-					<span style={{ marginLeft: "3px" }}>Logout</span>
+					<IoLogOut  size={20} />
+					<span style={{ marginLeft: '3px' }}>Logout</span>
 				</MenuItem>
 			</Menu>
 		</div>

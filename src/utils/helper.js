@@ -31,3 +31,24 @@ export const calculatePasswordStrength = (password) => {
 
     return strength;
 };
+
+export const uniquePaintingsByAuthor = (paintings) => {
+    const paintingMap = new Map();
+    paintings?.forEach(painting => {
+        if (!paintingMap.has(painting.authorId)) {
+            paintingMap.set(painting.authorId, painting);
+        }
+    });
+    return Array.from(paintingMap.values());
+};
+
+export const getImageDimensions = (src) => {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+            resolve({ width: img.width, height: img.height });
+        };
+        img.onerror = reject;
+        img.src = src;
+    });
+};

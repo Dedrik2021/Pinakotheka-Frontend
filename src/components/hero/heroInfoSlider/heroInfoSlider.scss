@@ -1,0 +1,262 @@
+@import '../../../scss/vars';
+
+.hero {
+
+    &__content-slider {
+        z-index: 2;
+        max-width: 1425px;
+        width: 100%;
+        margin: -520px auto 0;
+        padding-left: 15px;
+
+        @include r($screen-xl) {
+            margin-top: -170px;
+        }
+
+        @include r($mobile-xl) {
+            margin-top: -110px;
+        }
+
+        @include r($mobile-md) {
+            margin-top: -90px;
+        }
+
+        @include r($mobile-sm) {
+            margin-top: -50px;
+            padding: 0 15px;
+        }
+
+        .hero__item {
+            max-width: auto;
+        }
+
+        .slick-list {
+            height: 458px;
+
+            @include r($mobile-md) {
+                height: 400px;
+            }
+        }
+    }
+
+}
+
+.pick-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    &__author,
+    &__title,
+    &__id {
+        @include line-clamp(1);
+    }
+
+    &__title {
+        font-weight: 400;
+        font-family: $journalism;
+        font-size: 106px;
+        letter-spacing: -0.1rem;
+        margin-bottom: 20px;
+
+        @include r($mobile-xl) {
+            padding: 0 0 0 15px;
+        }
+
+        @include r($mobile-lg) {
+            font-size: 100px;
+        }
+
+        @include r($mobile-md) {
+            font-size: 76px;
+            padding: 0 15px;
+        }
+
+        @include r($mobile-sm) {
+            font-size: 40px;
+        }
+    }
+
+    &__id {
+        font-weight: 700;
+        margin-bottom: 15px;
+        letter-spacing: 0rem;
+        max-width: 350px;
+        word-break: break-all;
+    }
+
+    &__wrapper {
+        border-top-right-radius: 10px;
+    }
+
+    &__material,
+    &__wrapper {
+        display: flex;
+        font-weight: 300;
+        color: $gray-100;
+        line-height: 1.8;
+        letter-spacing: 0.01rem;
+        max-width: 350px;
+
+        span {
+            margin-right: 5px;
+        }
+    }
+
+    &__author {
+        border-bottom: 1px solid transparent;
+        transition: border-bottom-color 0.4s, color 0.4s;
+
+        &:hover {
+            border-bottom-color: $red;
+            color: $black;
+        }
+
+        &:focus {
+            outline-color: transparent;
+            border-bottom-color: $red;
+        }
+    }
+
+    &__material {
+        border-bottom-right-radius: 10px;
+        @include line-clamp(1);
+
+        @include r($mobile-md) {
+            margin-bottom: 20px;
+        }
+    }
+
+    &__box {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-left: 3px;
+
+        @include r($mobile-md) {
+            margin-bottom: 30px;
+        }
+
+        @include r($mobile-sm) {
+            flex-direction: column-reverse;
+            align-items: flex-start;
+        }
+    }
+
+    &__btn {
+        padding: 20px 55px 18px;
+        margin-right: 135px;
+
+        @include r($mobile-md) {
+            margin-right: 50px;
+        }
+
+        @include r($mobile-sm) {
+            margin-right: 0;
+        }
+    }
+
+    &__price {
+        font-size: 72px;
+        color: $white;
+        border-radius: 10px;
+        padding: 17px 55px 18px 65px;
+        background-color: rgba(0, 0, 0, 0.8);
+        box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.5), inset -1px 1px 1px rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px);
+        position: relative;
+
+        @include r($mobile-md) {
+            font-size: 50px;
+        }
+
+        @include r($mobile-sm) {
+            font-size: 25px;
+            margin-bottom: 20px;
+            padding: 15px 30px 15px 40px;
+        }
+
+        span {
+            font-weight: 700;
+            font-size: 24px;
+            position: absolute;
+            left: 42px;
+            top: 28px;
+
+            @include r($mobile-md) {
+                top: 20px;
+                font-size: 20px;
+            }
+
+            @include r($mobile-sm) {
+                top: 15px;
+                font-size: 16px;
+                left: 20px;
+            }
+        }
+    }
+}
+
+.slick-dots {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 60px;
+    bottom: 0px !important;
+    z-index: 5;
+
+    & .slick-active .custom-block {
+        height: 8px;
+        width: 8px;
+        background-color: $red !important;
+    }
+
+    & li {
+        width: 2px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.custom-block {
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background-color: black;
+    font-size: 0;
+    color: #8c8c8c;
+
+    @include r($mobile-md) {
+        bottom: 28px;
+    }
+
+    @include r($mobile-sm) {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    // li {
+    //     font-size: 0;
+    //     margin: 0;
+    //     width: 10px;
+    // }
+
+    button {
+        border: none;
+        padding: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: $gray;
+        transition: background-color 0.4s;
+    }
+}
+
+.slick-item {
+    &--left {
+        margin-right: 20px !important;
+    }
+
+    &--right {
+        padding-left: 20px;
+    }
+}
