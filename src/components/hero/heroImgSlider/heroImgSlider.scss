@@ -8,6 +8,25 @@
 
 .hero__pick-slider {
     margin-left: 355px;
+
+    .slick-slide  {
+        height: 560px;
+        display: flex !important;
+        justify-content: flex-start;
+        transition: all 1s ease-in-out;
+
+        & div {
+            width: 100%;
+        }
+        
+        &.slick-center.slick-active {
+    
+        }
+    
+        &.slick-cloned {
+            justify-content: flex-start !important;
+        }
+    }
 }
 
 .painting-info {
@@ -40,18 +59,9 @@
     font-size: 1em;
 }
 
-.slick-slide.slick-center  {
-    height: 540px;
 
-    & div li {
 
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-    
-        // & img {
-        //     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2);
-        // }
-    }
+.hero__img-wrapper img {
+    display: block;
+    box-shadow: 10px 10px 8px 0px rgba(0, 0, 0, 0.5);
 }

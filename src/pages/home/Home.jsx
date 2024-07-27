@@ -11,14 +11,17 @@ const Home = ({ socket }) => {
 
     console.log(user);
 
+	useEffect(() => [
+		window.scrollTo(0, 0)
+	], [])
+
     if (status === 'loading') return <Spinner/>
 
 	return (
 		<div>
             <Hero paintings={paintings} />
 			<div className="container">
-				home
-				{/* <Spinner /> */}
+				
 			</div>
 		</div>
 	);

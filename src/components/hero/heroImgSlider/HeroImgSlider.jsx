@@ -42,25 +42,28 @@ const HeroImgSlider = (props) => {
 				{paintings?.map(({ _id, image, title }) => {
 					return (
 						<li className="hero__item hero__item--img" key={_id}>
-							{imageDimensions[_id] && (
+							<div
+								className="hero__img-wrapper"
+								style={{
+									width: '100%',
+									display: 'flex',
+									justifyContent:
+										imageDimensions[_id]?.width < imageDimensions[_id]?.height
+											? 'center'
+											: 'flex-start',
+								}}
+							>
 								<img
 									src={image}
 									alt={title}
 									height={540}
-									width={imageDimensions[_id]?.width < imageDimensions[_id]?.height ? 400 : 900}
+									width={
+										imageDimensions[_id]?.width < imageDimensions[_id]?.height
+											? 400
+											: 900
+									}
 								/>
-							)}
-
-							{/* <div
-								className="hero__img-blur blur"
-								style={{ backgroundImage: `url(${image})`, height:  imageDimensions[_id]?.width < imageDimensions[_id]?.height ? "540px" : "540px", width: imageDimensions[_id]?.width < imageDimensions[_id]?.height ? "430px" : "900px" }}
-							></div> */}
-							{/* {imageDimensions[_id] && (
-								<p>
-									Размер: {imageDimensions[_id].width}x
-									{imageDimensions[_id].height}
-								</p>
-							)} */}
+							</div>
 						</li>
 					);
 				})}

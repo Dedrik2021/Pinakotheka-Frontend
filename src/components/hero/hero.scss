@@ -24,7 +24,7 @@
         width: 470px;
         z-index: 1;
         height: 550px;
-        left: 300px;
+        left: 450px;
         top: -50px;
         background-image: radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
 
@@ -81,13 +81,10 @@
     }
 
     &__sliders {
-        // max-height: calc(100vh - 125px);
         padding-top: 35px;
-        // margin-top: 125px;
         height: 900px;
         position: relative;
         top: 0px;
-        // display: flex;
         flex-direction: column;
         justify-content: center;
         max-width: 100%;
@@ -102,18 +99,18 @@
         }
     }
 
-    &__img-blur {
-        // top: 0;
-        z-index: 1;
+    // &__img-blur {
+    //     // top: 0;
+    //     z-index: 1;
 
-        // @include r($screen-xl) {
-        //     width: 800px;
-        // }
+    //     // @include r($screen-xl) {
+    //     //     width: 800px;
+    //     // }
 
-        // @include r($mobile-xl) {
-        //     display: none;
-        // }
-    }
+    //     // @include r($mobile-xl) {
+    //     //     display: none;
+    //     // }
+    // }
 }
 
 .slick-active button {
