@@ -6,7 +6,9 @@ const apiUrl = `${process.env.REACT_APP_API_URL}/painting`;
 const initialState = {
 	status: '',
 	error: '',
-    paintings: []
+    paintings: [],
+	// statusFiltering: '',
+	filteredPaintings: []
 };
 
 export const getAllPaintings = createAsyncThunk(
@@ -26,6 +28,18 @@ export const createPainting = createAsyncThunk(
 	async (values, {rejectWithValue} ) => {
 		try {
 			const { data } = await axios.post(`${apiUrl}/add-painting`, values);
+			return data;
+		} catch (error) {
+			return rejectWithValue(error.response.data.error.message);
+		}
+	},
+);
+
+export const filterPaintingsByBtn = createAsyncThunk(
+	'painting/filterpaintings',
+	async (buttonId, {rejectWithValue} ) => {
+		try {
+			const { data } = await axios.post(`${apiUrl}/filter-paintings`, {buttonId});
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.response.data.error.message);
@@ -113,6 +127,20 @@ export const paintingSlice = createSlice({
 			})
 			.addCase(createPainting.rejected, (state, action) => {
 				state.status = 'failed';
+				state.error = action.payload;
+			})
+
+			.addCase(filterPaintingsByBtn.pending, (state) => {
+				// state.statusFiltering = 'loading';
+				state.error = '';
+			})
+			.addCase(filterPaintingsByBtn.fulfilled, (state, action) => {
+				// state.statusFiltering = 'succeeded';
+				state.error = '';
+				state.filteredPaintings = action.payload
+			})
+			.addCase(filterPaintingsByBtn.rejected, (state, action) => {
+				// state.statusFiltering = 'failed';
 				state.error = action.payload;
 			});
 	},

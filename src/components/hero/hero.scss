@@ -1,6 +1,7 @@
 @import '../../scss/vars';
 
 .hero {
+    margin-bottom: 100px;
     transition: filter 0.2s;
 
     &.active {
@@ -24,8 +25,8 @@
         width: 470px;
         z-index: 1;
         height: 550px;
-        left: 450px;
-        top: -50px;
+        left: 380px;
+        top: 0px;
         background-image: radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
 
         @include r($screen-xxl) {
@@ -82,9 +83,10 @@
 
     &__sliders {
         padding-top: 35px;
-        height: 900px;
+        height: 760px;
         position: relative;
         top: 0px;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         max-width: 100%;

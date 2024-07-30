@@ -7,24 +7,40 @@
 }
 
 .hero__pick-slider {
-    margin-left: 355px;
+    margin-left: 350px;
 
     .slick-slide  {
-        height: 560px;
+        height: 710px;
         display: flex !important;
         justify-content: flex-start;
-        transition: all 1s ease-in-out;
+        align-items: center;
+        transition: all 0.5s ease-in-out;
 
         & div {
             width: 100%;
+
+            & li {
+                display: flex !important;
+                justify-content: center;
+            }
         }
-        
-        &.slick-center.slick-active {
-    
-        }
-    
+
         &.slick-cloned {
-            justify-content: flex-start !important;
+            & div {
+    
+                & .big {
+                    opacity: 0;
+                }
+            }
+        }
+
+        &.slick-active.slick-current {
+            & div {
+    
+                & .big {
+                    opacity: 1;
+                }
+            }
         }
     }
 }
@@ -62,6 +78,25 @@
 
 
 .hero__img-wrapper img {
-    display: block;
-    box-shadow: 10px 10px 8px 0px rgba(0, 0, 0, 0.5);
+    // display: block;
+    position: relative;
+    // object-fit: cover;
+    z-index: 0;
+    // box-shadow: 38px 20px 10px 47px rgba(0, 0, 0, 0.5);
+    transform: rotate(-2deg);
 }
+
+.hero__img-wrapper {
+    position: relative;
+}
+
+.hero__frame {
+    position: absolute;
+    z-index: 5;
+    left: -135px;
+    top: -120px;
+    transform: rotate(-2deg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+} 

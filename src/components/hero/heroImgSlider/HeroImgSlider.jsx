@@ -2,6 +2,9 @@ import Slider from 'react-slick';
 import { useState, useEffect } from 'react';
 
 import { getImageDimensions } from '../../../utils/helper';
+import img_frame_horizontal from '../../../assets/images/frame_horizontal.png';
+import img_frame_vertical from '../../../assets/images/frame_vertical.png'
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -28,8 +31,6 @@ const HeroImgSlider = (props) => {
 		fetchImageDimensions();
 	}, []);
 
-	console.log(imageDimensions);
-
 	return (
 		<div className="container container--lg">
 			<Slider
@@ -41,27 +42,57 @@ const HeroImgSlider = (props) => {
 			>
 				{paintings?.map(({ _id, image, title }) => {
 					return (
-						<li className="hero__item hero__item--img" key={_id}>
+						<li
+							className={`hero__item hero__item--img ${imageDimensions[_id]?.width > imageDimensions[_id]?.height
+											? "big" : ""}`}
+							key={_id}
+						>
 							<div
 								className="hero__img-wrapper"
 								style={{
-									width: '100%',
-									display: 'flex',
-									justifyContent:
+									width:
 										imageDimensions[_id]?.width < imageDimensions[_id]?.height
-											? 'center'
-											: 'flex-start',
+											? 400
+											: 900,
 								}}
 							>
+								<div
+									className="hero__frame"
+									style={{
+										backgroundImage: `url(${imageDimensions[_id]?.width > imageDimensions[_id]?.height ? img_frame_horizontal : img_frame_vertical })`,
+										width:
+											imageDimensions[_id]?.width <
+											imageDimensions[_id]?.height
+												? 620
+												: 1120,
+										height: imageDimensions[_id]?.width <
+											imageDimensions[_id]?.height
+												? 800
+												: 760,
+										left: imageDimensions[_id]?.width <
+											imageDimensions[_id]?.height
+												? -110
+												: -175,
+												top: imageDimensions[_id]?.width <
+											imageDimensions[_id]?.height
+												? -125
+												: -135,
+									}}
+								></div>
 								<img
 									src={image}
 									alt={title}
-									height={540}
+									height={imageDimensions[_id]?.width > imageDimensions[_id]?.height
+											? 500
+											: 550}
 									width={
 										imageDimensions[_id]?.width < imageDimensions[_id]?.height
 											? 400
-											: 900
+											: 770
 									}
+									style={{boxShadow: imageDimensions[_id]?.width < imageDimensions[_id]?.height
+											? '38px 20px 10px 47px rgba(0, 0, 0, 0.5)'
+											: '38px 32px 10px 55px rgba(0, 0, 0, 0.5)'}}
 								/>
 							</div>
 						</li>

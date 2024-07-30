@@ -1,0 +1,12 @@
+.paintings-cards {
+	background: rgb(11, 11, 11);
+	padding: 100px 0 0;
+	margin-bottom: 70px;
+
+	&__list {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 10px;
+		margin-bottom: 50px;
+	}
+}
