@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -14,31 +14,53 @@ const btns = [
 	{ id: 5, title: 'Sale' },
 ];
 
-const FilterBtn = ({ setLoading, setCheckPaintings, checkPaintings, setFilterTitle, filterTitle, page }) => {
-	const dispatch = useDispatch();
-	const [buttonId, setButtonId] = useState(1);
-    const location = useLocation()
-    const navigate = useNavigate()
+// const lastLocation = localStorage.getItem('lastLocation');
+// const urlParams = new URLSearchParams(lastLocation.split('?')[1]);
+// // const filter = urlParams.get('filter');
 
-	const handleButton = async (newId, title) => {
-        setFilterTitle(title)
-        localStorage.setItem('lastLocation', `${location.pathname}?page=${page}&filter=${title}`);
-        navigate(`?page=${page}&filter=${title}`)
-		setButtonId((prevButtonId) => {
-			if (prevButtonId !== newId) {
-				setCheckPaintings(true);
-				getFilteredPainting(newId);
-				if (newId === 1 && checkPaintings) setCheckPaintings(false);
-				return newId;
+const FilterBtn = ({ setLoading, setFilterTitle, page }) => {
+    const dispatch = useDispatch();
+	const location = useLocation();
+	const navigate = useNavigate();
+    const filter = location.search ? location?.search?.split('&')[1].split('=')[1] : ''
+	const [titleFilterBtn, setTitleFilterBtn] = useState(filter ? filter : 'random');
+
+    useEffect(() => {
+        if (filter) {
+            localStorage.setItem(
+                'lastLocation',
+                `${location.pathname}?page=${1}&filter=${filter}`,
+            );
+        }
+    }, [filter, location.pathname, setFilterTitle])
+
+	const handleButton = async (title) => {
+		setFilterTitle(title);
+		setTitleFilterBtn((prevTitleBtn) => {
+            if (prevTitleBtn !== title) {
+                navigate(`?page=${1}&filter=${title}`);
+                localStorage.setItem(
+                    'lastLocation',
+                    `${location.pathname}?page=${1}&filter=${title}`,
+                );
+				return title;
 			}
 		});
 	};
 
-	const getFilteredPainting = async (id) => {
-		setLoading(true);
-		await dispatch(filterPaintingsByBtn(id));
-		setLoading(false);
-	};
+    // console.log(filter);
+
+	useMemo(() => {
+		const getFilteredPainting = async (title) => {
+			setLoading(true);
+			await dispatch(filterPaintingsByBtn(title));
+			setLoading(false);
+		};
+		if (titleFilterBtn) {
+			getFilteredPainting(titleFilterBtn);
+		}
+		setFilterTitle(titleFilterBtn);
+	}, [dispatch,  setFilterTitle, setLoading, titleFilterBtn]);
 
 	return (
 		<ul className="filter-btn">
@@ -46,9 +68,9 @@ const FilterBtn = ({ setLoading, setCheckPaintings, checkPaintings, setFilterTit
 				return (
 					<li className="filter-btn__item" key={id}>
 						<button
-							onClick={() => handleButton(id, title)}
+							onClick={() => handleButton(title.toLowerCase())}
 							className={`btn btn--universal btn--black ${
-								id === buttonId ? 'active' : ''
+								title.toLowerCase() === titleFilterBtn ? 'active' : ''
 							} `}
 							type="button"
 						>

@@ -37,9 +37,9 @@ export const createPainting = createAsyncThunk(
 
 export const filterPaintingsByBtn = createAsyncThunk(
 	'painting/filterpaintings',
-	async (buttonId, {rejectWithValue} ) => {
+	async (values, {rejectWithValue} ) => {
 		try {
-			const { data } = await axios.post(`${apiUrl}/filter-paintings`, {buttonId});
+			const { data } = await axios.post(`${apiUrl}/filter-paintings`, {titleFilterBtn: values});
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.response.data.error.message);
