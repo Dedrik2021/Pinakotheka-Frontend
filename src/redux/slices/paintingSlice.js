@@ -7,7 +7,6 @@ const initialState = {
 	status: '',
 	error: '',
     paintings: [],
-	// statusFiltering: '',
 	filteredPaintings: []
 };
 
@@ -131,16 +130,13 @@ export const paintingSlice = createSlice({
 			})
 
 			.addCase(filterPaintingsByBtn.pending, (state) => {
-				// state.statusFiltering = 'loading';
 				state.error = '';
 			})
 			.addCase(filterPaintingsByBtn.fulfilled, (state, action) => {
-				// state.statusFiltering = 'succeeded';
 				state.error = '';
 				state.filteredPaintings = action.payload
 			})
 			.addCase(filterPaintingsByBtn.rejected, (state, action) => {
-				// state.statusFiltering = 'failed';
 				state.error = action.payload;
 			});
 	},

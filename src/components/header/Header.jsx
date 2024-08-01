@@ -43,7 +43,7 @@ const Header = () => {
 
 	const { user } = useSelector((state) => state.user);
 	const { token } = user;
-	// console.log(user);
+	console.log(user);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -53,8 +53,8 @@ const Header = () => {
 	};
 
 	useEffect(() => {
-		const getPaint = async () => {
-			await dispatch(getAllPaintings());
+		const getPaint = () => {
+			dispatch(getAllPaintings());
 		};
 
 		getPaint();

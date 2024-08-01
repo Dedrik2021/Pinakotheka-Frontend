@@ -83,11 +83,11 @@ const PaintingsCards = ({ paintings = [] }) => {
 		}
 	};
 
-    useEffect(() => {
-        if (page) {
-            setCurrentPage(page)
-        }
-    }, [page])
+	useEffect(() => {
+		if (page) {
+			setCurrentPage(page);
+		}
+	}, [page]);
 
 	const handlePageChange = (newPage) => {
 		setLoading(true);
@@ -111,14 +111,10 @@ const PaintingsCards = ({ paintings = [] }) => {
 			}}
 		>
 			<div className="container" ref={paintingsRef}>
-				<FilterBtn
-					setLoading={setLoading}
-					setFilterTitle={setFilterTitle}
-					page={page}
-				/>
+				<FilterBtn setLoading={setLoading} setFilterTitle={setFilterTitle} page={page} />
 				<ul className="paintings-cards__list">
 					{currentItems?.map((item) => {
-						return <PaintingCard {...item} key={item._id} />;
+						return <PaintingCard status={status} loading={loading} {...item} key={item._id} />;
 					})}
 				</ul>
 				<Pagination

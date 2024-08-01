@@ -45,9 +45,16 @@
         margin-bottom: 5px;
         
         & h2 {
+            display: inline !important;
             font-size: 17px;
             font-weight: 600;
-            @include line-clamp(2)
+            border-bottom: 1px solid transparent;
+            @include line-clamp(2);
+            transition: border-bottom-color 0.3s ease-in-out;
+
+            &:hover {
+                border-bottom-color: $red;
+            }
         }
 
     }

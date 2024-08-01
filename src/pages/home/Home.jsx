@@ -12,7 +12,9 @@ const Home = ({ socket }) => {
 
 	// useEffect(() => [window.scrollTo(0, 0)], []);
 
-	if (status === 'loading') return <Spinner />;
+	if (status === 'loading') {
+		return <Spinner />;
+	} 
 
 	return (
 		<div>

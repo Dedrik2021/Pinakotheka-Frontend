@@ -14,10 +14,6 @@ const btns = [
 	{ id: 5, title: 'Sale' },
 ];
 
-// const lastLocation = localStorage.getItem('lastLocation');
-// const urlParams = new URLSearchParams(lastLocation.split('?')[1]);
-// // const filter = urlParams.get('filter');
-
 const FilterBtn = ({ setLoading, setFilterTitle, page }) => {
     const dispatch = useDispatch();
 	const location = useLocation();
@@ -48,9 +44,7 @@ const FilterBtn = ({ setLoading, setFilterTitle, page }) => {
 		});
 	};
 
-    // console.log(filter);
-
-	useMemo(() => {
+	useEffect(() => {
 		const getFilteredPainting = async (title) => {
 			setLoading(true);
 			await dispatch(filterPaintingsByBtn(title));
