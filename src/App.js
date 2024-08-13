@@ -5,6 +5,10 @@ import { io } from 'socket.io-client';
 
 import Register from './pages/auth/register/Register';
 import Home from './pages/home/Home';
+import Catalog from './pages/catalog/Catalog.jsx';
+import SingleArt from './pages/singleArt/SingleArt.jsx';
+import SingleUser from './pages/singleUser/SingleUser.jsx';
+
 import Spinner from './components/spinner/Spinner';
 import ErrorBoundary from './ErrorBoundary.js';
 import SocketContext from './context/SocketContext.js';
@@ -43,6 +47,9 @@ const App = () => {
 				<Suspense fallback={<Spinner />}>
 					<Routes location={location} key={location.pathname}>
 						<Route exact path="/" element={<Home />} />
+						<Route exact path="/catalog/:slug" element={<Catalog />} />
+						<Route exact path="/single-user/:userId" element={<SingleUser />} />
+						<Route exact path="/single-art/:artId" element={<SingleArt />} />
 						<Route
 							exact
 							path="/login"
