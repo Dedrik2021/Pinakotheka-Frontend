@@ -1,59 +1,79 @@
 import { Link } from 'react-router-dom';
 
 import SkeletonPaintingCard from '../../skeletons/SkeletonPaintingCard';
+import { isNew } from '../../../utils/helper';
+import {
+	paintingSize,
+	sculptureSize,
+	drawingSize,
+	digitalArtSize,
+	handmadeSize,
+} from '../../../utils/sizes';
+import { capitalizeFirstLetter } from '../../../utils/helper';
 
 import './paintingCard.scss';
 
 const PaintingCard = (props) => {
 	const {
 		_id,
+		authorName,
 		authorId,
-		author,
-		createdAt,
-		description,
 		loading,
 		status,
 		image,
 		material,
 		price,
 		size,
-		title,
+		sale,
+		name,
+		path,
+		createdAt,
+		slug = '',
+		background = '#fff',
 	} = props;
 
+	const date = new Date(createdAt);
+
 	return (
-		<li className="painting-card__item">
-			{status === 'loading' || loading ? (
-				<div style={{ backgroundColor: '#fff', borderRadius: '5px' }}>
+		<>
+			<li className="painting-card__item">
+				{status === 'loading' || loading ? (
 					<SkeletonPaintingCard />
-				</div>
-			) : (
-				<article className="card">
-					<Link to={''} className="card__link card__link--painting">
-						<div className="card__img-wrapper">
-							<img height={300} width={260} src={image} alt="" />
-						</div>
-					</Link>
-					<div className="card__content">
-						<Link className="card__title-link" to={''}>
-							<h2 className="card__title">{title}</h2>
-						</Link>
-						<div className="card__wrapper">
-							<Link className="card__author" to={''}>
-								<span>{author}</span>
-							</Link>
-							<div>Rating</div>
-						</div>
-						<div className="card__wrapper">
-							<div className="card__items">
-								<div className="card__material">{material},</div>
-								<div>({size})</div>
+				) : (
+					<article className="card" style={{ backgroundColor: `${background}` }}>
+						<Link to={`${path}${_id}`} className="card__link card__link--painting">
+							<div className="card__img-wrapper">
+								{isNew(date) ? <div className="card__label-new">New</div> : null}
+								<img height={320} width={260} src={image} alt={name} />
 							</div>
-							<div>€{price}</div>
+						</Link>
+						<div className="card__content">
+							<Link className="card__title-link" to={`${path}${_id}`}>
+								<h2 className="card__title title">{name}</h2>
+							</Link>
+							<div className="card__items">
+								<span className="card__element">Author:</span>
+								<Link className="card__author" to={`/single-user/${authorId}`}>
+									<span>{authorName}</span>
+								</Link>
+							</div>
+
+							<div className="card__price">
+								<div className={` ${sale ? 'card__price--strike' : ''}`}>
+									<span className="card__element">Price:</span>€{price}
+								</div>
+								{sale && (
+									<div className="card__sale">
+										<span className="card__element">Sale:</span>€{sale}
+									</div>
+								)}
+							</div>
 						</div>
-					</div>
-				</article>
-			)}
-		</li>
+					</article>
+				)}
+			</li>
+			{/* <SkeletonPaintingCard /> */}
+		</>
 	);
 };
 
