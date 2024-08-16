@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation } from 'react-router';
 
 import PaintingCard from '../paintingCard/PaintingCard';
 import FilterBtn from '../../filterBtn/FilterBtn';
-import Spinner from '../../spinner/Spinner';
 import { shuffleArray } from '../../../utils/helper';
 import Pagination from '../../pagination/Pagination';
 
 import './paintingsCards.scss';
 
-const PaintingsCards = ({ paintings = [] }) => {
+const PaintingsCards = () => {
+	const [shuffledArray, setShuffledArray] = useState([]);
 	const [gradient, setGradient] = useState(35);
 	const [increasing, setIncreasing] = useState(true);
 	const [loading, setLoading] = useState(false);
@@ -18,20 +18,23 @@ const PaintingsCards = ({ paintings = [] }) => {
 	const [filterTitle, setFilterTitle] = useState('');
 	const {
 		filteredPaintings = [],
-		statusFiltering,
 		status,
 	} = useSelector((state) => state.painting);
 
-	const paintingsArray = Array.isArray(filteredPaintings) ? [...filteredPaintings] : [];
+	
+	useEffect(() => {
+		const paintingsArray = Array.isArray(filteredPaintings) ? [...filteredPaintings] : [];
+		if (filterTitle === 'random') {
+			setShuffledArray(shuffleArray([...paintingsArray]))
+		} else {
+			setShuffledArray([...paintingsArray])
+		}
+	}, [filterTitle, filteredPaintings])
 
 	const location = useLocation();
-	// const navigate = useNavigate();
 	const searchParams = new URLSearchParams(location.search);
 	let page = parseInt(searchParams.get('page')) || 1;
-	// const lastLocation = localStorage.getItem('lastLocation');
-	// const urlParams = new URLSearchParams(lastLocation.split('?')[1]);
 	const paintingsRef = useRef();
-	// const shuffleredArray = shuffleArray(paintings)
 
 	useEffect(() => {
 		localStorage.setItem(
@@ -64,13 +67,13 @@ const PaintingsCards = ({ paintings = [] }) => {
 		return () => clearInterval(interval);
 	}, [increasing]);
 
-	const count = 3;
+	const count = 15;
 	const startIndex = (currentPage - 1) * count;
 	const endIndex = startIndex + count;
-	const currentItems = paintingsArray?.length
-		? paintingsArray?.sort((a, b) => a.index - b.index).slice(startIndex, endIndex)
+	const currentItems = shuffledArray?.length
+		? shuffledArray?.sort((a, b) => a.index - b.index).slice(startIndex, endIndex)
 		: [];
-	const totalPages = paintingsArray?.length ? Math.ceil(paintingsArray?.length / count) : 1;
+	const totalPages = shuffledArray?.length ? Math.ceil(shuffledArray?.length / count) : 1;
 
 	const handleScroll = (ref) => {
 		if (ref) {
@@ -111,18 +114,34 @@ const PaintingsCards = ({ paintings = [] }) => {
 			}}
 		>
 			<div className="container" ref={paintingsRef}>
-				<FilterBtn setLoading={setLoading} setFilterTitle={setFilterTitle} page={page} />
+				<h2 className='paintings-cards__title title'>Art</h2>
+				<FilterBtn paintRef={paintingsRef} handleScroll={handleScroll} setLoading={setLoading} setFilterTitle={setFilterTitle} page={page} />
 				<ul className="paintings-cards__list">
-					{currentItems?.map((item) => {
-						return <PaintingCard status={status} loading={loading} {...item} key={item._id} />;
-					})}
+					{currentItems.length ? (
+						currentItems?.map((item) => {
+							return (
+								<PaintingCard
+									status={status}
+									loading={loading}
+									{...item}
+									key={item._id}
+								/>
+							);
+						})
+					) : (
+						<li >
+							<h2 >No Paintings</h2>
+						</li>
+					)}
 				</ul>
-				<Pagination
+				{currentItems.length ? (
+                    <Pagination
 					totalPages={totalPages}
 					handlePageChange={handlePageChange}
 					currentPage={currentPage}
 					filterTitle={filterTitle}
 				/>
+                ) : null}
 			</div>
 		</section>
 	);

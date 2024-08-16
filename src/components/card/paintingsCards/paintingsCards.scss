@@ -3,6 +3,12 @@
 	padding: 100px 0 0;
 	margin-bottom: 70px;
 
+	&__title {
+		margin-bottom: 40px;
+		color: #fff;
+		color: #f0efef;
+	}
+
 	&__list {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
