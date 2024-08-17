@@ -44,6 +44,12 @@
         &:hover {
             border-bottom-color: $red;
         }
+
+        &.active {
+            font-weight: 600;
+            pointer-events: none;
+            color: $red;
+        }
 	}
 
     &__copyright {

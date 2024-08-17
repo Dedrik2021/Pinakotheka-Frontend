@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, NavLink } from 'react-router-dom';
 
 import Logo from '../../assets/images/Logo';
 import { headerLinks } from '../header/Header';
@@ -6,6 +6,9 @@ import { headerLinks } from '../header/Header';
 import './footer.scss';
 
 const Footer = () => {
+	const location = useLocation();
+	const locationPathname = location.pathname.split('/')[1]
+
 	return (
 		<div className="footer">
 			<div className="container">
@@ -14,11 +17,16 @@ const Footer = () => {
 						<Logo width={175} fill={'#fff'} />
 					</Link>
 					<ul className="footer__nav__list">
-						{headerLinks.map((link, i) => (
-							<li key={i} className="footer__nav__item">
-								<Link className="footer__nav__link" to={link.path}>
+						{headerLinks.map((link) => (
+							<li key={link.id} className="footer__nav__item">
+								<NavLink
+									className={`footer__nav__link ${
+										locationPathname === link.path.split('/')[1] ? 'active' : ''
+									}`}
+									to={link.path}
+								>
 									{link.title}
-								</Link>
+								</NavLink>
 							</li>
 						))}
 					</ul>
