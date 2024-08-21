@@ -1,15 +1,16 @@
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import { getPaintingById, getPaintingsByAuthorId } from '../../redux/slices/paintingSlice';
 import { getAuthorById } from '../../redux/slices/userSlice';
 import Spinner from '../../components/spinner/Spinner';
-import { getImageDimensions } from '../../utils/helper';
+import { getImageDimensions, handleScroll, getPaginationItems } from '../../utils/helper';
 import BlockAuthor from './blockAuthor/BlockAuthor';
 import BlockArts from './blockArts/BlockArts';
+import Pagination from '../../components/pagination/Pagination';
 
 import './singleArt.scss';
 
@@ -17,14 +18,39 @@ const SingleArt = () => {
 	const { artId } = useParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const location = useLocation();
+	const itemsRef = useRef(null);
 	const { singleArt, error, status, authorsArts } = useSelector((state) => state.painting);
 	const { author } = useSelector((state) => state.user);
 
 	const [imgDimensions, setImgDimensions] = useState({ width: 0, height: 0 });
+	const [currentPage, setCurrentPage] = useState(1);
+	const [loading, setLoading] = useState(false);
+
+	const searchParams = new URLSearchParams(location.search);
+	let page = parseInt(searchParams.get('page')) || 1;
+
+	const authorsArtsArray = Array.isArray(authorsArts) ? [...authorsArts] : [];
+
+	useEffect(() => {
+		if (page) {
+			setCurrentPage(page);
+		}
+	}, [page]);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
+
+	useEffect(() => {
+		localStorage.setItem(
+			'lastLocation',
+			`${location.pathname}?page=${page}`,
+		);
+	}, [
+		location.pathname,
+		page,
+	]);
 
 	useEffect(() => {
 		dispatch(getPaintingById(artId));
@@ -37,8 +63,16 @@ const SingleArt = () => {
 		}
 	}, [singleArt?.authorId, dispatch]);
 
-	console.log(author);
-	console.log(authorsArts);
+	const { currentItems, totalPages } = getPaginationItems(imgDimensions.width > imgDimensions.height ? 12 : 16, authorsArtsArray, currentPage);
+
+	const handlePageChange = (newPage) => {
+		setLoading(true);
+		setCurrentPage(newPage);
+		handleScroll(itemsRef.current, currentPage, totalPages);
+		setTimeout(() => {
+			setLoading(false);
+		}, 300);
+	};
 
 	const handleImageLoad = async () => {
 		const { width, height } = await getImageDimensions(singleArt?.image);
@@ -60,7 +94,7 @@ const SingleArt = () => {
 	// Format the created date
 	const formattedDate = new Date(singleArt?.createdAt).toLocaleDateString();
 
-	if (status === 'loading' && imgDimensions.width === 0) {
+	if (status === 'loading' && imgDimensions.width === 0 && authorsArtsArray?.length === 0) {
 		return <Spinner />;
 	}
 
@@ -131,7 +165,19 @@ const SingleArt = () => {
 						<BlockAuthor author={author} />
 					</div>
 					<div className="">
-						<BlockArts arts={authorsArts} singleArtId={singleArt?._id} />
+						<BlockArts
+							itemsRef={itemsRef}
+							arts={currentItems}
+							loading={loading}
+							singleArtId={singleArt?._id}
+							compareHeightImage={imgDimensions.width > imgDimensions.height}
+						/>
+
+						<Pagination
+							totalPages={totalPages}
+							handlePageChange={handlePageChange}
+							currentPage={currentPage}
+						/>
 					</div>
 				</div>
 			</div>
