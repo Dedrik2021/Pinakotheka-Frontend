@@ -26,6 +26,7 @@ const SingleArt = () => {
 	const [imgDimensions, setImgDimensions] = useState({ width: 0, height: 0 });
 	const [currentPage, setCurrentPage] = useState(1);
 	const [loading, setLoading] = useState(false);
+	const [isFullScreen, setIsFullScreen] = useState(false);
 
 	const searchParams = new URLSearchParams(location.search);
 	let page = parseInt(searchParams.get('page')) || 1;
@@ -43,14 +44,8 @@ const SingleArt = () => {
 	}, []);
 
 	useEffect(() => {
-		localStorage.setItem(
-			'lastLocation',
-			`${location.pathname}?page=${page}`,
-		);
-	}, [
-		location.pathname,
-		page,
-	]);
+		localStorage.setItem('lastLocation', `${location.pathname}?page=${page}`);
+	}, [location.pathname, page]);
 
 	useEffect(() => {
 		dispatch(getPaintingById(artId));
@@ -63,7 +58,11 @@ const SingleArt = () => {
 		}
 	}, [singleArt?.authorId, dispatch]);
 
-	const { currentItems, totalPages } = getPaginationItems(imgDimensions.width > imgDimensions.height ? 12 : 16, authorsArtsArray, currentPage);
+	const { currentItems, totalPages } = getPaginationItems(
+		imgDimensions.width > imgDimensions.height ? 17 : 16,
+		authorsArtsArray,
+		currentPage,
+	);
 
 	const handlePageChange = (newPage) => {
 		setLoading(true);
@@ -77,6 +76,10 @@ const SingleArt = () => {
 	const handleImageLoad = async () => {
 		const { width, height } = await getImageDimensions(singleArt?.image);
 		setImgDimensions({ width, height });
+	};
+
+	const handleImageClick = () => {
+		setIsFullScreen(!isFullScreen);
 	};
 
 	useEffect(() => {
@@ -132,7 +135,27 @@ const SingleArt = () => {
 									style={{
 										height: `${imgDimensions.width === 0 ? '0' : '100%'}`,
 									}}
+									onClick={handleImageClick}
 								/>
+								{isFullScreen && (
+									<div className="single-art__overlay">
+										<div
+											className={`overlay ${
+												imgDimensions.width > imgDimensions.height
+													? 'overlay--landscape'
+													: 'overlay--portrait'
+											}`}
+											onClick={handleImageClick}
+										>
+											<img
+												src={singleArt?.image}
+												alt={singleArt?.name}
+												className="image-full-screen"
+												onClick={handleImageClick}
+											/>
+										</div>
+									</div>
+								)}
 							</div>
 							<div className="single-art__details">
 								<h1 className="single-art__title">{singleArt?.name}</h1>
@@ -169,6 +192,7 @@ const SingleArt = () => {
 							itemsRef={itemsRef}
 							arts={currentItems}
 							loading={loading}
+							page={currentPage}
 							singleArtId={singleArt?._id}
 							compareHeightImage={imgDimensions.width > imgDimensions.height}
 						/>
