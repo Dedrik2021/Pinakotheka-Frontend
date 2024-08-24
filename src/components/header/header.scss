@@ -84,8 +84,13 @@
         border-bottom: 2px solid transparent;
         transition: border-bottom-color 0.3s ease-in-out;
 
-        &:hover {
+        &.active {
             border-bottom-color: $red;
+            pointer-events: none;
+        }
+
+        &:hover {
+            border-bottom-color: $black-100;
         }
     }
 }

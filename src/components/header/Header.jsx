@@ -1,33 +1,36 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 
 import Logo from '../../assets/images/Logo.jsx';
-import { logout } from '../../redux/slices/userSlice';
+import { logout, getUsers } from '../../redux/slices/userSlice';
 import InfoModal from '../infoModal/InfoModal.jsx';
 import UserDropdown from '../userDropdown/UserDropdown.jsx';
 import Search from '../search/Search.jsx';
 import { getAllPaintings } from '../../redux/slices/paintingSlice.js';
-import { addPainting } from '../../redux/slices/paintingSlice.js';
 
 import './header.scss';
 
 export const headerLinks = [
 	{
+		id: 1,
 		title: 'Home',
 		path: '/',
 	},
 	{
+		id: 2,
 		title: 'Catalog',
-		path: '/catalog',
+		path: '/catalog/paintings',
 	},
 	{
+		id: 3,
 		title: 'About',
 		path: '/about',
 	},
 	{
+		id: 4,
 		title: 'Contact',
 		path: '/contact',
 	},
@@ -40,10 +43,14 @@ const Header = () => {
 	const [openDropdown, setOpenDropdown] = useState(false);
 
 	const searchRef = useRef();
-
-	const { user } = useSelector((state) => state.user);
+	const searchListRef = useRef();
+	const location = useLocation()
+	const locationPathname = location.pathname.split('/')[1]
+	
+	const { user, users = [] } = useSelector((state) => state.user);
+	const { paintings = [], status } = useSelector((state) => state.painting);
 	const { token } = user;
-	console.log(user);
+	// console.log(user);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -52,13 +59,15 @@ const Header = () => {
 		setOpenLoginModal(true);
 	};
 
-	useEffect(() => {
-		const getPaint = () => {
-			dispatch(getAllPaintings());
-		};
+	const data = [...paintings, ...users];
 
-		getPaint();
-	}, [dispatch]);
+	useEffect(() => {
+		dispatch(getAllPaintings());
+	}, []);
+
+	useEffect(() => {
+		dispatch(getUsers());
+	}, []);
 
 	useEffect(() => {
 		window.addEventListener('scroll', () => {
@@ -69,19 +78,6 @@ const Header = () => {
 			window.removeEventListener('scroll', () => {
 				setScroll(window.scrollY);
 			});
-		};
-	}, []);
-
-	const handleClickOutside = (event) => {
-		if (searchRef.current && !searchRef.current.contains(event.target)) {
-			setOpenSearch(false);
-		}
-	};
-
-	useEffect(() => {
-		document.addEventListener('mousedown', handleClickOutside);
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
 		};
 	}, []);
 
@@ -98,7 +94,15 @@ const Header = () => {
 						<Logo width={175} />
 					</Link>
 					<div className="header__search">
-						{openSearch && <Search searchRef={searchRef} openSearch={openSearch} />}
+						{openSearch && (
+							<Search
+								searchListRef={searchListRef}
+								data={data}
+								searchRef={searchRef}
+								openSearch={openSearch}
+								setOpenSearch={setOpenSearch}
+							/>
+						)}
 						<button
 							onClick={() => setOpenSearch(!openSearch)}
 							type="button"
@@ -111,10 +115,10 @@ const Header = () => {
 						style={{ fontSize: '16px', fontWeight: '600' }}
 						className="header__nav__list"
 					>
-						{headerLinks.map((link, i) => {
+						{headerLinks.map((link) => {
 							return (
-								<li key={i}>
-									<NavLink to={link.path} className="header__nav__link">
+								<li key={link.id}>
+									<NavLink to={link.path}  className={`header__nav__link ${locationPathname === link.path.split('/')[1] ? "active" : ""}`}>
 										{link.title}
 									</NavLink>
 								</li>
@@ -132,7 +136,7 @@ const Header = () => {
 							}}`}
 							style={{ padding: !token && '5px 10px' }}
 						>
-							{token ? (
+							{token || openDropdown ? (
 								<UserDropdown logout={() => handleLogout()} open={openDropdown} />
 							) : (
 								'Login'
