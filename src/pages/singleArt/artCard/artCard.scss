@@ -1,0 +1,121 @@
+@import '../../../scss/vars';
+
+.single-art {
+    padding: 5px;
+    border-radius: 5px;
+    // width: 100%;
+
+    &--landscape {
+        min-width: 1005px;
+        width: 1005px;
+    }
+
+    &--portrait {
+        min-width: 710px;
+        width: 720px;
+    }
+
+    &__image {
+        width: 100%;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &--landscape {
+            max-width: 1005px;
+            height: 650px;
+        }
+
+        &--portrait {
+            max-width: 710px;
+            height: 950px;
+        }
+
+        & img {
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__wrapper,
+    &__price-wrapper,
+    &__price {
+        display: flex;
+    }
+
+    &__price {
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        margin-bottom: 5px;
+
+        &--sale {
+            color: $red;
+            font-weight: bold;
+        }
+
+        &--strike {
+            text-decoration: line-through;
+            color: #888;
+            display: flex;
+            margin-right: 10px;
+        }
+    }
+
+    &__sale {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        border: 2px solid $red;
+        padding: 11px 10px;
+        transform: rotate(25deg);
+        border-radius: 50%;
+        font-weight: bold;
+        right: 0;
+        color: $red;
+        margin-left: 5px;
+        font-size: 16px;
+    }
+
+    &__wrapper {
+        flex-wrap: wrap;
+
+        &:not(:last-child) {
+            margin-bottom: 5px;
+        }
+    }
+
+    &__weight {
+        font-weight: 600;
+    }
+
+    &__item {
+
+        &:not(:last-child) {
+            margin-right: 5px;
+        }
+    }
+
+    &__details {
+        padding: 0 10px 10px;
+    }
+
+    &__overlay {
+        
+        &::before {
+            cursor:default;
+            position: fixed;
+            content: '';
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            height: 100vh;
+            width: 100vw;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+    }
+}
