@@ -1,4 +1,4 @@
-import { useState, memo, useEffect } from 'react';
+import { useState } from 'react';
 
 import HeroImgSlider from './heroImgSlider/HeroImgSlider';
 import HeroInfoSlider from './heroInfoSlider/HeroInfoSlider';
@@ -28,14 +28,14 @@ const PrevArrow = (props) => {
 	);
 };
 
-const Hero = memo(({ paintings }) => {
+const Hero = ({ paintings }) => {
 	const [sliderImg, setSliderImg] = useState();
 	const [sliderInfo, setSliderInfo] = useState();
     const uniquePaintings = uniquePaintingsByAuthor(paintings);
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
+	// useEffect(() => {
+	// 	window.scrollTo(0, 0);
+	// }, []);
 
 	const imgSlider = {
 		slidesToShow: 1,
@@ -75,7 +75,7 @@ const Hero = memo(({ paintings }) => {
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		dots: true,
-		// autoplay: true,
+		autoplay: true,
         autoplaySpeed: 5000,
 		customPaging: (i) => (
 			<div className="custom-dot" >
@@ -126,6 +126,6 @@ const Hero = memo(({ paintings }) => {
 			</div>
 		</section>
 	);
-});
+};
 
 export default Hero;
