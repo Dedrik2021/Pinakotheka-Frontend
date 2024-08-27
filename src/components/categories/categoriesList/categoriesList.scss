@@ -1,0 +1,56 @@
+@import '../../../scss/vars';
+
+.categories-list {
+    display: flex;
+    justify-content: space-between;
+
+    &__link {
+        &.active {
+            pointer-events: none;
+        }
+    }
+
+    .categories-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        &__img-wrapper {
+            width: 240px;
+            height: 180px;
+            overflow: hidden;
+            border-radius: 5px;
+            margin-bottom: 5px;
+
+            & img {
+                width: 100%;
+                border-radius: 5px;
+                height: 100%;
+                object-fit: cover;
+                filter: grayscale(0.6);
+                transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
+                
+                &:hover {
+                    transform: scale(1.03);
+                    opacity: 0.9;
+                    filter: grayscale(0.3);
+                }
+            }
+
+            &.active {
+                border: 3px solid $red;
+                pointer-events: none;
+
+                & img {
+                    transform: scale(1.06);
+                    filter: grayscale(0);
+                }
+            }
+
+        }
+
+        &__title {
+            font-weight: 600;
+        }
+    }
+}
