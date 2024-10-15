@@ -1,0 +1,147 @@
+@import '../../../scss/vars';
+
+.chat-body {
+	position: relative;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	background-color: #3c3a3a;
+	overflow-y: auto;
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: 103% 100%;
+	transition: background-size 0.3s ease-in-out;
+}
+
+.start-chat__bg {
+	flex: 1;
+	background-color: $blue-100;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 40%;
+}
+
+.chat-loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.chat-message {
+	margin: 7px 0;
+	padding: 8px 10px;
+	border-radius: 10px;
+	max-width: 45%;
+	position: relative;
+	word-wrap: break-word;
+
+	p {
+		margin-bottom: 2px;
+	}
+
+	.triangle {
+		position: absolute;
+		top: -5px;
+
+		&.user {
+			transform: rotate(45deg);
+			right: -7px;
+			fill: #007bff;
+		}
+
+		&.author {
+			transform: rotate(-45deg);
+			left: -7px;
+			fill: #369d02;
+		}
+	}
+
+	small {
+		font-size: 12px;
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	&.user-message {
+		background-color: #007bff;
+		color: white;
+		align-self: flex-end;
+	}
+
+	&.author-message {
+		background-color: #369d02;
+		color: white;
+		align-self: flex-start;
+	}
+
+	&.bot {
+		background-color: #e1e1e1;
+		color: #333;
+		align-self: flex-start;
+	}
+
+	& .delete-message {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		top: 50%;
+		opacity: 0;
+		transform: translateY(-50%);
+		cursor: pointer;
+		padding: 5px 10px 5px 5px;
+		transition: opacity 0.2s left 0.2s ease;
+
+		&:hover {
+			color: red;
+		}
+	}
+
+	&.user-message {
+		.delete-message {
+			left: -35px;
+		}
+
+		&.on-hover {
+			& .delete-message {
+				opacity: 1;
+			}
+		}
+	}
+
+	&.author-message {
+		.delete-message {
+			right: -37px;
+		}
+
+		&.on-hover {
+			& .delete-message {
+				opacity: 1;
+			}
+		}
+	}
+
+	&.author-message,
+	&.user-message {
+		&.on-hover {
+			& .delete-message {
+				opacity: 1;
+			}
+		}
+	}
+
+	&.deleted {
+		background-color: transparent;
+		font-style: italic;
+
+		.triangle {
+			&.author,
+			&.user {
+				fill: transparent;
+			}
+		}
+	}
+}
