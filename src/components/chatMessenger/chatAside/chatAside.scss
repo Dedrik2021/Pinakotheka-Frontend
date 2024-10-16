@@ -1,0 +1,140 @@
+@import '../../../scss/vars';
+
+.aside-profile {
+	width: 350px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	font-family: Arial, sans-serif;
+	display: flex;
+	position: relative;
+	z-index: 0;
+	flex-direction: column;
+	background-color: #111b21;
+
+	&.scroll {
+		padding: 10px 5px 10px 10px;
+	}
+
+	&__list {
+		&.scroll {
+			padding-right: 5px;
+			overflow-y: auto;
+			height: 82.5vh;
+		}
+
+		li {
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			border-radius: 5px;
+			position: relative;
+			z-index: 0;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+			background-color: #ededed;
+			padding: 3px;
+			transition: background-color 0.3s ease;
+
+			&:not(:last-child) {
+				margin-bottom: 5px;
+			}
+
+			&:hover {
+				background-color: #d8d8d8;
+			}
+
+			&.active {
+				background-color: $red;
+				pointer-events: none;
+
+				& .profile-info {
+					p,
+					h3 {
+						color: #fff;
+					}
+				}
+			}
+
+			&.online {
+				& img {
+					border: 2px solid transparent;
+					border-radius: 50%;
+					border-color: $green;
+				}
+			}
+
+			& .unread {
+				position: absolute;
+				z-index: 5 !important;
+				right: -5px;
+				top: -2px;
+				min-width: 10px;
+				min-height: 10px;
+				border: 1px solid $red;
+				border-radius: 50%;
+				padding: 1.5px 6px;
+				background-color: $red;
+				color: $white;
+
+				&.scroll {
+					right: 0;
+					top: 0;
+				}
+			}
+		}
+	}
+
+	.avatar {
+		max-width: 40px;
+		width: 100%;
+		height: 40px;
+		border-radius: 50%;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border: 2px solid transparent;
+			border-radius: 50%;
+			background-color: #d8d8d8;
+		}
+	}
+
+	.profile-info {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+
+		h3 {
+			color: #333;
+			margin: 0;
+			font-size: 14px;
+			margin-bottom: 3px;
+		}
+
+		& .status {
+			position: relative;
+			color: #282828;
+			bottom: 0;
+			left: 0%;
+			transform: translateX(-0%);
+			font-size: 13px;
+		}
+
+		p {
+			font-size: 12px;
+		}
+	}
+
+	.pipeline {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+}
