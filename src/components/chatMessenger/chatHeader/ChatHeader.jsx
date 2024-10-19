@@ -11,7 +11,9 @@ const ChatHeader = ({
 	checkOnlineStatus,
 	capitalizeFirstLetter,
 	getConversationName,
+	getConversationPicture
 }) => {
+
 	return activeConversation?.users?.length ? (
 		<div className="chat-header">
 			<div className="chat-header__wrapper">
@@ -19,15 +21,13 @@ const ChatHeader = ({
 					<img
 						height={40}
 						width={40}
-						src={activeConversation?.picture}
-						alt={activeConversation?.name}
+						src={getConversationPicture(user, activeConversation?.users)}
+						alt={getConversationName(user, activeConversation?.users)}
 					/>
 					<h2>
 						{
 							capitalizeFirstLetter(
-								activeConversation?.users[0]?._id === user?._id
-									? activeConversation?.name
-									: activeConversation?.sender_name,
+								getConversationName(user, activeConversation?.users)
 							).split(' ')[0]
 						}
 					</h2>
