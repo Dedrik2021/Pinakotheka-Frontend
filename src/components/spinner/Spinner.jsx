@@ -2,12 +2,12 @@ import PulseLoader from 'react-spinners/PulseLoader';
 
 import './spinner.scss';
 
-const Spinner = () => {
+const Spinner = ({styles = false, color = '#000'}) => {
 	return (
 		<div className="spinner">
-			<span className="spinner__layout"></span>
+			<span className={`spinner__layout ${styles ? 'active' : ''}`} ></span>
 			<div className="spinner__loader">
-				<PulseLoader size={35} color="#000" />
+				<PulseLoader size={35} color={color} />
 			</div>
 		</div>
 	);
