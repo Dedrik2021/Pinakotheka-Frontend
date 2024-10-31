@@ -1,0 +1,35 @@
+.chat-menu-attachments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-top: 1px solid #ddd;
+    background-color: #111b21;
+    position: absolute;
+    color: #ddd;
+    left: -30%;
+
+    & li:not(:last-child) {
+        margin-bottom: 5px;
+    }
+
+    &__btn {
+        
+        &:hover {
+            background-color: #007bff !important;
+            color: #282828 !important;
+        }
+    }
+}
+
+.open-attachments-animation {
+    animation: toolsOpen 0.1s forwards;
+}
+
+@keyframes toolsOpen {
+    0% {
+        pointer-events: none;
+        transform: translateY(60px);
+    }
+}
