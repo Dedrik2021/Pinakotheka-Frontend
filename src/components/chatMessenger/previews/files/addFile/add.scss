@@ -1,0 +1,29 @@
+.add-file {
+    position: relative;
+    width: 51px;
+    height: 54px;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: transparent;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+    &:hover {
+        transform: translateY(-3px);
+        background-color: #282828;
+    }
+    
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    & input {
+        position: relative;
+        z-index: 100;
+    }
+}
