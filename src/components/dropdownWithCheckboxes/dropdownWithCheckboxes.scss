@@ -1,0 +1,80 @@
+.dropdown-container {
+	max-width: 255px;
+	width: 100%;
+
+	&:not(:last-child) {
+		margin-bottom: 5px;
+	}
+}
+
+.dropdown-header {
+	position: relative;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
+	background-color: #f9f9f9;
+	font-size: 16px;
+	transition: background-color 0.2s ease-in-out;
+
+	&.active,
+	&:hover {
+		background-color: #e9e8e8;
+	}
+
+	&.active {
+
+		& .dropdown-arrow {
+			transform: rotate(90deg);
+		}
+	}
+}
+
+.dropdown-arrow {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	right: 10px;
+	transition: transform 0.2s ease-in-out;
+}
+
+.dropdown-list {
+	position: relative;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: #fff;
+	z-index: 5;
+	max-height: 0px;
+	opacity: 0;
+	overflow-y: auto;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+	transition: all 0.3s ease-in-out;
+
+	&.active {
+		max-height: 300px;
+		opacity: 1;
+	}
+}
+
+.dropdown-item {
+	padding: 5px;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.1);
+	}
+}
+
+.dropdown-item input[type='checkbox'] {
+	margin-right: 10px;
+}
