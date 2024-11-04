@@ -1,0 +1,30 @@
+@import '../../../../../scss/vars';
+
+.files-header {
+    margin-bottom: 10px;
+    
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ccc;
+        position: relative;
+        padding: 0 45px;
+
+        & h1 {
+            font-size: 14px;
+            word-break: normal;
+            @include line-clamp(1);
+        }
+    }
+
+    &__btn {
+        margin-right: 10px;
+        position: absolute;
+        left: -5px;
+        
+        &:hover {
+            background-color: #282828!important;
+        }
+    }
+}
