@@ -1,0 +1,66 @@
+.emoji-picker {
+
+    &__content {
+        position: absolute;
+        left: -8px;
+        background-color: #282828;;
+    }
+}
+
+.epr-body::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.epr-body::-webkit-scrollbar-track {
+    background-color: #282828 !important;
+}
+
+.epr-body::-webkit-scrollbar-thumb {
+    background-color: #fff !important;
+}
+
+.epr-emoji-search-container {
+    background: #222e35 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    font-size: 13px !important;
+}
+
+.epr-preview {
+    display: none !important;
+}
+
+.epr-emoji-category-label {
+    background: transparent !important;
+    font-size: 13px !important;
+    font-weight: normal !important;
+}
+
+.epr-category-nav .epr-active::after {
+    content: "";
+    width: 140px;
+    height: 4px;
+    background: #00a884;
+    position: absolute;
+    bottom: -10px;
+    left: -55px;
+}
+
+.epr-header {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+// .epr-dark-theme {
+//     width: 1090px !important;
+// }
+
+.open-emoji-animation {
+    animation: openTools 0.1s forwards;
+}
+
+@keyframes openTools {
+    0% {
+        transform: translateY(60px);
+    }
+}
