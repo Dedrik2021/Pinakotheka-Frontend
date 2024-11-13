@@ -1,0 +1,106 @@
+@import '../../scss/vars';
+
+.cart {
+    // padding: 100px 0 50px;
+    background: rgb(11, 11, 11);
+	background: linear-gradient(
+		500deg,
+		rgba(11, 11, 11, 1) 0%,
+		rgba(159, 159, 159, 1) 80%,
+		rgba(255, 255, 255, 1) 100%
+	);
+    display: flex;
+    justify-content: center;
+
+    &__content {
+        background-color: #fff;
+        padding: 20px;
+    }
+
+    &__empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+
+        & img {
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        & h2 {
+            text-shadow: 2px 2px 3px rgba(255, 255, 255, 1);
+        }
+
+        & p {
+            text-shadow: 2px 2px 3px rgba(255, 255, 255, 1);
+            margin-bottom: 20px;
+        }
+
+        &--link {
+            transition: opacity 0.3s ease-in-out;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+}
+
+.product-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+
+    &__item {
+        width: 100%;
+    
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+
+    & .product {
+        display: flex;
+        background-color: #ccc;
+        padding: 10px;
+        border-radius: 5px;
+
+        &__img-wrapper {
+            margin-right: 40px;
+            background-color: #ccc;
+            position: relative;
+            height: 250px;
+            border-radius: 5px;
+        }
+
+        &__img {
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
+
+            &--copy {
+                position: absolute;
+                z-index: 1;
+                left: 10px;
+                top: 10px;
+                object-fit: cover;
+                filter: blur(10px);
+            }
+        }
+
+        &__details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__title {
+            // display: flex;
+            // justify-content: center;
+        }
+    }
+
+
+}
