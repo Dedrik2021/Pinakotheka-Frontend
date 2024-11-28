@@ -11,6 +11,7 @@ import SingleUser from './pages/singleUser/SingleUser.jsx';
 import NotFound from './pages/notFound/NotFound.jsx';
 import Cart from './pages/cart/Cart.jsx';
 import Messenger from './pages/messager/Messenger.jsx';
+import About from './pages/about/About.jsx';
 
 import Spinner from './components/spinner/Spinner';
 import ErrorBoundary from './ErrorBoundary.js';
@@ -30,22 +31,11 @@ const App = () => {
 	// let token = ''
 	const location = useLocation();
 
-	// useEffect(() => {
-	// 	socket.on('receiveMessage', (msg) => {
-	// 		console.log(msg);
-	// 	});
-	// });
-
-	// const sendMsg = () => {
-	// 	socket.emit('sendMessage', 'hallo howe are you');
-	// };
-
 	return (
 		<SocketContext.Provider value={socket}>
 			<ErrorBoundary>
 				<Header />
 			</ErrorBoundary>
-			{/* <button onClick={() => sendMsg()}>Send message</button> */}
 			<main className="main">
 				<Suspense fallback={<Spinner />}>
 					<Routes location={location} key={location.pathname}>
@@ -79,6 +69,11 @@ const App = () => {
 							exact
 							path="/cart"
 							element={<Cart />}
+						/>
+						<Route
+							exact
+							path="/about"
+							element={<About />}
 						/>
 						<Route
 							exact
