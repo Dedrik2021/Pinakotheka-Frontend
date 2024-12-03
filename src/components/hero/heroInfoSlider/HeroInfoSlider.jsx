@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -7,8 +8,6 @@ import './heroInfoSlider.scss';
 
 const HeroInfoSlider = (props) => {
 	const { infoSlider, sliderImg, setSliderInfo, paintings } = props;
-
-	// const firstPaintings = paintingsInfo.map((item) => item.works[0]);
 
 	return (
 		<Slider
@@ -18,34 +17,24 @@ const HeroInfoSlider = (props) => {
 			slide="ul"
 			ref={(sliderInfo) => setSliderInfo(sliderInfo)}
 		>
-			{paintings?.map(({ _id, author, title, material, size, price }) => {
+			{paintings?.map(({ _id, authorId, authorName, name, price }) => {
 				return (
 					<li className="hero__item" key={_id}>
 						<article className="pick-card">
-							<h3 className="pick-card__title">{title}</h3>
+							<h3 className="pick-card__title">{name}</h3>
 							<span className="pick-card__id">
-								ID: <span>{_id}</span>
+								<span className='pick-card__span' >Lot:</span> <span className="pick-card__item">{_id}</span>
 							</span>
 							<div className="pick-card__wrapper">
-								<span>Author:</span>
-								<Link className="pick-card__item pick-card__item--link" to={''} rel="author">
-									{author}
+								<span className='pick-card__span'>Author:</span>
+								<Link className="pick-card__item pick-card__item--link" to={`/single-user/${authorId}`} rel="author">
+									{authorName}
 								</Link>
 							</div>
-							<span className="pick-card__material">
-								<span>Material:</span>
-								<span className="pick-card__item">{material}</span>
-							</span>
-							<span className="pick-card__material">
-								<span>Size:</span>
-								<span className="pick-card__item">{size}</span>
-							</span>
 							<div className="pick-card__box">
 								<Link
 									className="pick-card__btn btn btn--red btn--universal"
-									// to={`/SinglePainting/${work.id}`}
-									// to={''}
-									// onClick={() => onPainting(work.emailId)}
+									to={`/single-art/${_id}`}
 								>
 									More details
 								</Link>
@@ -54,10 +43,6 @@ const HeroInfoSlider = (props) => {
 									{price}
 								</span>
 							</div>
-							{/* <div className="pick-card__dots">
-									<span className="pick-card__num">01</span>
-									<span className="pick-card__num">{paintings.length > 9 ? paintings.length : `0${paintings.length}`}</span>
-								</div> */}
 						</article>
 					</li>
 				);
