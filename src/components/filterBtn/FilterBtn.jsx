@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -14,47 +14,52 @@ const btns = [
 	{ id: 5, title: 'Sale' },
 ];
 
-const FilterBtn = ({ setLoading, setFilterTitle, page }) => {
-    const dispatch = useDispatch();
+const FilterBtn = ({
+	setLoading,
+	setFilterTitle,
+	paintRef,
+	handleScroll,
+	currentPage,
+	totalPages,
+}) => {
+	const dispatch = useDispatch();
 	const location = useLocation();
 	const navigate = useNavigate();
-    const filter = location.search ? location?.search?.split('&')[1].split('=')[1] : ''
+	const filter = location.search ? location?.search?.split('&')[1].split('=')[1] : '';
 	const [titleFilterBtn, setTitleFilterBtn] = useState(filter ? filter : 'random');
 
-    useEffect(() => {
-        if (filter) {
-            localStorage.setItem(
-                'lastLocation',
-                `${location.pathname}?page=${1}&filter=${filter}`,
-            );
-        }
-    }, [filter, location.pathname, setFilterTitle])
+	useEffect(() => {
+		if (filter) {
+			localStorage.setItem('lastLocation', `${location.pathname}?page=${1}&filter=${filter}`);
+		}
+	}, [filter, location.pathname, setFilterTitle]);
 
 	const handleButton = async (title) => {
 		setFilterTitle(title);
+		handleScroll(paintRef.current, currentPage, totalPages, 250);
 		setTitleFilterBtn((prevTitleBtn) => {
-            if (prevTitleBtn !== title) {
-                navigate(`?page=${1}&filter=${title}`);
-                localStorage.setItem(
-                    'lastLocation',
-                    `${location.pathname}?page=${1}&filter=${title}`,
-                );
+			if (prevTitleBtn !== title) {
+				navigate(`?page=${1}&filter=${title}`);
+				localStorage.setItem(
+					'lastLocation',
+					`${location.pathname}?page=${1}&filter=${title}`,
+				);
 				return title;
 			}
 		});
 	};
 
 	useEffect(() => {
-		const getFilteredPainting = async (title) => {
+		const getFilteredPainting = async (slug) => {
 			setLoading(true);
-			await dispatch(filterPaintingsByBtn(title));
+			await dispatch(filterPaintingsByBtn({ dependenciesArray: [], slug }));
 			setLoading(false);
 		};
 		if (titleFilterBtn) {
 			getFilteredPainting(titleFilterBtn);
 		}
 		setFilterTitle(titleFilterBtn);
-	}, [dispatch,  setFilterTitle, setLoading, titleFilterBtn]);
+	}, [dispatch, titleFilterBtn]);
 
 	return (
 		<ul className="filter-btn">
