@@ -6,13 +6,51 @@ import EmojiPickerApp from '../../../components/emojiPicker/EmojiPicker';
 import SocketContext from '../../../context/SocketContext';
 import { sendMessageConvo } from '../../../redux/slices/chatSlice';
 import { refreshUser, updateUnreadMessage } from '../../../redux/slices/userSlice';
+import ChatAttachments from '../chatAttachments.jsx/ChatAttachments';
 
 import './chatAction.scss';
 
-const ChatAction = ({user, authorId, activeConversation, setLoading, loading, status, typing, chatInputRef, setTyping, socket}) => {
+const ChatAction = ({
+	user,
+	authorId,
+	activeConversation,
+	setLoading,
+	loading,
+	status,
+	typing,
+	chatInputRef,
+	setTyping,
+	socket,
+}) => {
 	const dispatch = useDispatch();
 	const [height, setHeight] = useState(0);
 	const [text, setText] = useState('');
+	const [openAttachments, setOpenAttachments] = useState(false);
+	const [openEmoji, setOpenEmoji] = useState(false);
+	const [newText, setNewText] = useState('');
+	const [checkHeight, setCheckHeight] = useState(0);    
+
+    useEffect(() => {
+        setCheckHeight(height);
+    }, [height]);
+
+    const handleCheckHeight = () => {
+        if (checkHeight === 0) {
+            return '51px';
+        } else if (checkHeight === 44) {
+            return '51px';
+        } else if (checkHeight === 68) {
+            return '63px';
+        } else if (checkHeight === 92) {
+            return '74px';
+        } else if (checkHeight === 116) {
+            return '87px';
+        } else if (checkHeight === 140) {
+            return '98px';
+        } else if (checkHeight === 150) {
+            return '104px';
+        }
+    };
 
 	const handleChange = (event) => {
 		setText(event.target.value);
@@ -42,6 +80,16 @@ const ChatAction = ({user, authorId, activeConversation, setLoading, loading, st
 		}, timer);
 	};
 
+	useEffect(() => {
+		if (!text || text.length < newText.length || text.length > newText.length) {
+			setOpenEmoji(false);
+			setOpenAttachments(false);
+		}
+		if (!text) {
+			setHeight(0);
+		}
+	}, [text]);
+
 	const handleSend = async (e) => {
 		e?.preventDefault();
 		setLoading(true);
@@ -63,16 +111,37 @@ const ChatAction = ({user, authorId, activeConversation, setLoading, loading, st
 
 	useEffect(() => {
 		// if (user?._id !== authorId) {
-			// setTimeout(async() => {
-				dispatch(refreshUser(user?._id));
-				dispatch(updateUnreadMessage({ userId: user?._id, senderId: authorId }));
-			// }, 2000);
+		// setTimeout(async() => {
+		dispatch(refreshUser(user?._id));
+		dispatch(updateUnreadMessage({ userId: user?._id, senderId: authorId }));
+		// }, 2000);
 		// }
-	}, [loading])
+	}, [loading]);
 
 	return (
 		<form className="chat-footer" onSubmit={handleSend}>
-			<EmojiPickerApp height={height} chatRef={chatInputRef} text={text} setText={setText} />
+			<ul className="chat-footer__list">
+				<li className="chat-footer__item">
+					<EmojiPickerApp
+						chatRef={chatInputRef}
+						text={text}
+						setText={setText}
+						setOpenAttachments={setOpenAttachments}
+						openEmoji={openEmoji}
+						setOpenEmoji={setOpenEmoji}
+						setNewText={setNewText}
+						handleCheckHeight={handleCheckHeight}
+					/>
+				</li>
+				<li className="chat-footer__item">
+					<ChatAttachments
+						setOpenEmoji={setOpenEmoji}
+						openAttachments={openAttachments}
+						setOpenAttachments={setOpenAttachments}
+						handleCheckHeight={handleCheckHeight}
+					/>
+				</li>
+			</ul>
 			<textarea
 				className="chat-input scrollbar"
 				value={text}
