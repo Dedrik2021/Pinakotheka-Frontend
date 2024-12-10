@@ -15,20 +15,25 @@ import { openCreateConversation } from '../../../redux/slices/chatSlice';
 
 import './chatAside.scss';
 
-const ChatAside = ({ conversations, activeConversation, user, onlineUsers, typing, socket }) => {
+const ChatAside = ({ conversations, activeConversation, user, onlineUsers, typing, setLoading, socket }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const openNewChat = async (id, convo) => {
+		setLoading(true);
 		const values = {
 			receiver_id: getConversationId(user, convo?.users),
 			token: user?.token,
 			sender_name: user?.name,
+			receiver_name: convo?.name,
+			receiver_picture: convo?.picture,
 		};
+
 		await dispatch(openCreateConversation(values));
 		socket.emit('join-conversation', activeConversation?._id);
 		await dispatch(updateUnreadMessage({ userId: user?._id, senderId: id }));
 		navigate('/messenger/' + id);
+		setLoading(false);
 	};
 
 	const unreadMessagesArray = Object.entries(user?.unreadMessages).map(([id, mg]) => ({

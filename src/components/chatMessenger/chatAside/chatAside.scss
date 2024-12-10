@@ -116,6 +116,12 @@
 			margin-bottom: 3px;
 		}
 
+		.typing {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
 		& .status {
 			position: relative;
 			color: #282828;
