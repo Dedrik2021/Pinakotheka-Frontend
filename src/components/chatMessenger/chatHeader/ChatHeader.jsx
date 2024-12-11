@@ -1,5 +1,6 @@
-import { BsThreeDotsVertical } from 'react-icons/bs';
 import { BeatLoader } from 'react-spinners';
+
+import ChatHeaderDropdown from '../chatHeaderDropdown/ChatHeaderDropdown';
 
 import './chatHeader.scss';
 
@@ -11,8 +12,10 @@ const ChatHeader = ({
 	checkOnlineStatus,
 	capitalizeFirstLetter,
 	getConversationName,
-	getConversationPicture
+	getConversationPicture,
+	handleDeleteConversation
 }) => {
+
 
 	return activeConversation?.users?.length ? (
 		<div className="chat-header">
@@ -27,7 +30,7 @@ const ChatHeader = ({
 					<h2>
 						{
 							capitalizeFirstLetter(
-								getConversationName(user, activeConversation?.users)
+								getConversationName(user, activeConversation?.users),
 							).split(' ')[0]
 						}
 					</h2>
@@ -36,9 +39,8 @@ const ChatHeader = ({
 						isOnline={checkOnlineStatus(onlineUsers, user, activeConversation?.users)}
 					/>
 				</div>
-				<button className="btn chat-header__btn" type="button">
-					<BsThreeDotsVertical size={25} />
-				</button>
+				
+				<ChatHeaderDropdown handleDeleteConversation={handleDeleteConversation} />
 			</div>
 			{typing === activeConversation?._id ? (
 				<div className="typing">
