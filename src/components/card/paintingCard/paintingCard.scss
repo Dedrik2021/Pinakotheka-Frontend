@@ -4,6 +4,7 @@
 .painting-card__item {
 	background-color: #e7e7e7;
 	border-radius: 5px;
+	max-width: 262px;
 	transition: box-shadow 0.3s ease-in-out;
 
 	&.active {
@@ -34,6 +35,7 @@
 	}
 
 	.card {
+		max-width: 262px;
 		height: 100%;
 		padding: 5px;
 		overflow: hidden;

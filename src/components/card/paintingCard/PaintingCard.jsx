@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import SkeletonPaintingCard from '../../skeletons/SkeletonPaintingCard';
-import { isNew } from '../../../utils/helper';
+import { isNew, capitalizeFirstLetter } from '../../../utils/helper';
 
 import './paintingCard.scss';
 
@@ -18,18 +18,23 @@ const PaintingCard = (props) => {
 		name,
 		path,
 		page = '',
+		category,
 		singleArtId = null,
 		createdAt,
+		height = 413,
 		background = '#fff',
 	} = props;
 
+	const location = useLocation();
 	const date = new Date(createdAt);
 
+	const catalogLocation = location.pathname.split('/')[1] !== 'catalog' ? true : false;
+	
 	return (
 		<>
 			<li className={`painting-card__item ${singleArtId === _id ? 'active' : ''}`}>
 				{status === 'loading' || loading ? (
-					<SkeletonPaintingCard />
+					<SkeletonPaintingCard height={height} />
 				) : (
 					<article className={`card`} style={{ backgroundColor: `${background}` }}>
 						<Link
@@ -54,6 +59,14 @@ const PaintingCard = (props) => {
 									<span>{authorName}</span>
 								</Link>
 							</div>
+							{catalogLocation ? (
+								<div className="card__items">
+								<span className="card__element">Category:</span>
+								<Link className="card__author" to={`/catalog/${category}`}>
+									<span>{capitalizeFirstLetter(category)}</span>
+								</Link>
+							</div>
+							) : null}
 
 							<div className="card__price">
 								<div className={` ${sale ? 'card__price--strike' : ''}`}>
