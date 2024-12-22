@@ -1,12 +1,12 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { IoLogOut  } from 'react-icons/io5';
 import { MdAccountBox, MdDashboardCustomize  } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-const Dropdown = ({ logout, open }) => {
-	const [anchorEl, setAnchorEl] = React.useState(null);
+const UserDropdown = ({ logout, open }) => {
+	const [anchorEl, setAnchorEl] = useState(null);
 	const navigate = useNavigate()
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -44,7 +44,7 @@ const Dropdown = ({ logout, open }) => {
 			<Menu
 				id="basic-menu"
 				anchorEl={anchorEl}
-				open={open}
+				open={Boolean(anchorEl)}
 				onClose={handleClose}
 				MenuListProps={{
 					'aria-labelledby': 'basic-button',
@@ -67,4 +67,4 @@ const Dropdown = ({ logout, open }) => {
 	);
 };
 
-export default Dropdown;
+export default UserDropdown;
