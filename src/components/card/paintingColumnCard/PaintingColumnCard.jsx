@@ -9,7 +9,7 @@ import {
 	digitalArtSize,
 	handmadeSize,
 } from '../../../utils/sizes';
-import { capitalizeFirstLetter } from '../../../utils/helper';
+import { capitalizeFirstLetter, calculateSalePercentage } from '../../../utils/helper';
 
 import './paintingColumnCard.scss';
 
@@ -46,11 +46,13 @@ const PaintingColumnCard = (props) => {
 
 	const date = new Date(createdAt);
 
+	const discountPercentage = calculateSalePercentage(price, sale);
+
 	return (
 		<>
 			<li className="painting-column-card__item">
 				{status === 'loading' || loading ? (
-					<div style={{ backgroundColor: '#e7e7e7', borderRadius: '5px', width: '100%' }}>
+					<div style={{ backgroundColor: '#e7e7e7', borderRadius: '5px' }}>
 						<SkeletonHorizontalCard />
 					</div>
 				) : (
@@ -117,10 +119,11 @@ const PaintingColumnCard = (props) => {
 									<div className={` ${sale ? 'card__price--strike' : ''}`}>
 										€{price}
 									</div>
+									{sale && <div className="single-art__price--sale">€{sale}</div>}
 								</div>
 								{sale && (
 									<div className="card__sale">
-										<span className="card__item">Sale:</span>€{sale}
+										<span className="card__item">Sale</span>-{discountPercentage}%
 									</div>
 								)}
 							</div>
