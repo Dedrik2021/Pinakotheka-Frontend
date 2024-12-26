@@ -3,6 +3,11 @@
 	padding: 100px 0 0;
 	margin-bottom: 70px;
 
+	&__container {
+		// padding: 0 - 30px !important;
+		max-width: 1420px !important;
+	}
+
 	&__title {
 		margin-bottom: 40px;
 		color: #fff;
@@ -12,7 +17,8 @@
 	&__list {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
-		gap: 10px;
+		gap: 16px;
 		margin-bottom: 50px;
 	}
+
 }
