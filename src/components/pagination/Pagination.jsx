@@ -2,13 +2,38 @@ import { Link } from 'react-router-dom';
 
 import './pagination.scss';
 
-const Pagination = ({ currentPage, handlePageChange, totalPages, filterTitle }) => {
+const Pagination = (props) => {
+	const {
+		currentPage,
+		handlePageChange,
+		totalPages,
+		filterTitle,
+		materialOptions,
+		sizeOptions,
+		styleOptions,
+		gridBtn,
+		priceMax,
+		priceMin,
+		filterByDependencies
+	} = props;
 
 	return totalPages > 1 ? (
 		<div className="pagination">
 			<Link
 				className={`${currentPage === 1 && 'disabled'} pagination__prev`}
-				to={`?page=${currentPage - 1}&filter=${filterTitle}`}
+				to={
+					filterTitle
+						? filterTitle
+							? `?page=${currentPage - 1}&filter=${filterTitle}`
+							: `?page=${currentPage - 1}`
+						: materialOptions?.length > 0 ||
+						  sizeOptions?.length > 0 ||
+						  styleOptions?.length > 0 || filterByDependencies?.length
+						? `?page=${
+								currentPage - 1
+						  }&style=${styleOptions}&material=${materialOptions}&size=${sizeOptions}&price-min=${priceMin}&price-max=${priceMax}&grid-btn=${gridBtn}`
+						: `?page=${currentPage - 1}`
+				}
 				onClick={() => handlePageChange(currentPage - 1)}
 			>
 				Prev
@@ -22,7 +47,17 @@ const Pagination = ({ currentPage, handlePageChange, totalPages, filterTitle }) 
 								className={`${
 									currentPage === ind ? 'disabled' : ''
 								} pagination__link`}
-								to={`?page=${ind}&filter=${filterTitle}`}
+								to={
+									filterTitle
+										? filterTitle
+											? `?page=${ind}&filter=${filterTitle}`
+											: `?page=${ind}`
+										: materialOptions?.length > 0 ||
+										  sizeOptions?.length > 0 ||
+										  styleOptions?.length > 0 || filterByDependencies?.length
+										? `?page=${ind}&style=${styleOptions}&material=${materialOptions}&size=${sizeOptions}&price-min=${priceMin}&price-max=${priceMax}&grid-btn=${gridBtn}`
+										: `?page=${ind}`
+								}
 								onClick={() => handlePageChange(ind)}
 							>
 								{ind}
@@ -32,7 +67,19 @@ const Pagination = ({ currentPage, handlePageChange, totalPages, filterTitle }) 
 				})}
 			</ul>
 			<Link
-            to={`?page=${currentPage + 1}&filter=${filterTitle}`}
+				to={
+					filterTitle
+						? filterTitle
+							? `?page=${currentPage + 1}&filter=${filterTitle}`
+							: `?page=${currentPage + 1}`
+						: materialOptions?.length > 0 ||
+						  sizeOptions?.length > 0 ||
+						  styleOptions?.length > 0 || filterByDependencies?.length
+						? `?page=${
+								currentPage + 1
+						  }&style=${styleOptions}&material=${materialOptions}&size=${sizeOptions}&price-min=${priceMin}&price-max=${priceMax}&grid-btn=${gridBtn}`
+						: `?page=${currentPage + 1}`
+				}
 				onClick={() => handlePageChange(currentPage + 1)}
 				className={`${currentPage === totalPages && 'disabled'} pagination__next`}
 			>
