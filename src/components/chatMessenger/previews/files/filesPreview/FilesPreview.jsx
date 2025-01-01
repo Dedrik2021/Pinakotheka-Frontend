@@ -10,6 +10,7 @@ import './filesPreview.scss';
 const FilesPreview = () => {
 	const [message, setMessage] = useState('');
 	const [activeIndex, setActiveIndex] = useState(0);
+	const [loading, setLoading] = useState(false);
 
 	return (
 		<div className="files-preview">
@@ -22,6 +23,8 @@ const FilesPreview = () => {
 						message={message}
 						activeIndex={activeIndex}
 						setActiveIndex={setActiveIndex}
+						setLoading={setLoading}
+						loading={loading}
 					/>
 				</div>
 			</div>
