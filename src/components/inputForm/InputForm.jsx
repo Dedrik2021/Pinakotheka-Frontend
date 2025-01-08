@@ -1,6 +1,6 @@
 import './inputForm.scss';
 
-const InputForm = ({ name, reference, placeholder, type, value, id, setValue }) => {
+const InputForm = ({ name, reference, placeholder, type, value = "", id, setValue, clearError = () => {} }) => {
 	return (
 		<>
 			<label className='label' htmlFor={id}></label>
@@ -11,10 +11,8 @@ const InputForm = ({ name, reference, placeholder, type, value, id, setValue }) 
 				id={id}
 				ref={reference}
 				placeholder={placeholder}
-				value={value}
-				onChange={(e) => {
-					setValue({value: e.target.value, isValid: true});
-				}}
+				value={value || ''}
+				onChange={(e) => (setValue({value: e.target.value, isValid: true}), clearError())}
 			/>
 		</>
 	);
