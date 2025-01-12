@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import SkeletonPaintingCard from '../../skeletons/SkeletonPaintingCard';
 import { isNew, capitalizeFirstLetter } from '../../../utils/helper';
+import { calculateSalePercentage } from '../../../utils/helper';
 
 import './paintingCard.scss';
 
@@ -70,11 +71,11 @@ const PaintingCard = (props) => {
 
 							<div className="card__price">
 								<div className={` ${sale ? 'card__price--strike' : ''}`}>
-									<span className="card__element">Price:</span>€{price}
+									<span className="card__element">Price:</span>€ {price}
 								</div>
 								{sale && (
 									<div className="card__sale">
-										<span className="card__element">Sale:</span>€{sale}
+										<span className="card__element">Sale:</span>€ {calculateSalePercentage(price, sale)}
 									</div>
 								)}
 							</div>
